@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Felipa&display=swap" rel="stylesheet">
+    <link href="./orderForm.css" rel="stylesheet">
+    <title>Daisy A. Jewelry</title>
+
+</head>
+<body class="d-flex flex-column min-vh-100 bg-body-tertiary">
+    <header class="bg-body-tertiary">
+        <div class="container-fluid">
+            <h1 class="h1" id="name">Daisy A. Jewelry</h1>
+        </div>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!--Base Navbar -->
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="./index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="#">Contact</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="#">About</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Products
+                    </a>
+                    <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Bracelets</a></li>
+                    <li><a class="dropdown-item" href="#">Keychains</a></li>
+                    <li><a class="dropdown-item" href="#">Necklaces</a></li>
+
+                    </ul>
+                </li>
+            </ul>
+            </div>
+        </div>
+        </nav>
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="./index.html">Home</a></li>
+                <li class="breadcrumb-item" aria-current="page"><a href="./bracelets.html">Bracelets</li></a>
+                <li class="breadcrumb-item active" aria-current="page">Bracelets Order</li>
+            </ol>
+        </nav>
+    </header>
+     <main>
+    
+        <div class="container"></div>
+            <div class="row" id="formContainer">
+                <!--Order Form Outline-->
+            
+                <div class="col-6" id="formBox"> 
+                    <form action="/orders" method="POST" id="form" enctype="multipart/form-data">
+
+                        <p>Order From Daisy A. Jewels!</p>
+
+                        <label for="customerFirstName">First Name: </label>
+                        <input type="text" id="customerFirstName" name="customerFirstName">
+                        
+                        <br><br>
+                        <label for="customerLastName">Last Name: </label>
+                        <input type="text" id="customerLastName" name="customerLastName">
+                        
+                        <br><br>
+                        <label for="address1">Address Line 1:</label>
+                        <input type="text" id="address1" name="address1">
+
+                        <br><br>
+                        <label for="address2">Address Line 2:</label>
+                        <input type="text" id="address2" name="address2">
+
+                        <br><br>
+                        <label for="bracelet">Bracelet</label>
+                        <input type="radio" id="bracelet" name="braceletSelect">
+                        
+                        <label for="necklace">Necklace</label>
+                        <input type="radio" id="necklace" name="necklaceSelect">
+                        
+                        <label for="keychain">Keychain</label>
+                        <input type="radio" id="keychain" name="keychainSelecrt">
+                        
+                        <br>
+                        <button type="submit">Submit Order!</button>
+                    </form>
+                </div>
+            </div>
+    </main>
+
+    <footer class="p-3 bg-body-tertiary mt-auto" id="footer">
+        <div class="container-fluid">
+            <div class="row">
+            <div class="col text-center">Daisy A Jewelry</div>
+            </div> 
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+    <script src="./orderForm.js"></script>
+</body>
+</html>

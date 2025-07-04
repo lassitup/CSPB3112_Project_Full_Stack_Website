@@ -1,0 +1,49 @@
+main {
+    background-color: #d5d0cf;
+}
+
+#name {
+    text-align: center;
+    font-family: Felipa;
+    padding-top: 1rem;;
+    font-size: 4rem;
+}
+
+
+#welcome {
+    text-align: center;
+    margin: 0;
+    font-size: 5rem;
+}
+
+.nav-item {
+    margin: 0 50px;
+}
+
+#formContainer { 
+  justify-content: center;
+}
+
+form {
+    text-align: center;
+}
+
+form label, form input {
+    display: inline-block;
+}
+
+#formBox {
+    display: flex;
+    justify-content: center;
+}
+
+
+#footer {
+    font-family: Felipa;
+    font-size: 1.5rem;
+    height: 100%;
+}
+
+#footer p {
+    margin: 0;
+}
