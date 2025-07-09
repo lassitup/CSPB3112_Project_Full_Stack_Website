@@ -9,6 +9,16 @@ main {
     font-size: 4rem;
 }
 
+#shopping-cart {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    z-index: 1;
+    width: 5%;
+    height: 5%;
+
+}
+
 #row1 {
     min-height: 350px;
     align-items: center;

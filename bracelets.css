@@ -1,5 +1,6 @@
 main {
     background-color: #d5d0cf;
+    min-height: 600px;
 }
 
 #name {
@@ -25,10 +26,6 @@ main {
     max-width: 400px;
     height: auto;
     margin: auto;
-}
-
-main {
-    min-height: 500px;
 }
 
 
