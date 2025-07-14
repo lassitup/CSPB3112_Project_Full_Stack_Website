@@ -1,11 +1,28 @@
 const express = require('express');
 const multer = require('multer');
 const sqlite3 = require('sqlite3')
-const app = express();
-const upload = multer();
+const path = require('path');
+const session = require('express-session');
+const orders = require('./orders.js');
+const cart = require('./cart.js');
 
-//Connect to the database here
-const db = new sqlite3.Database('../Database/daisyajewelry.db');
+//To handle sessions, need pckages:
+//express-session
+
+
+//Establish Express Server
+const app = express();
+
+//MemoryStore should not be used in production
+const store = new session.MemoryStore();
+
+app.use(session({
+    //best practice is to set expiration on cookie - the Session ID is automatically set by express-session
+    resave: false,
+    saveUninitialized: false,
+    secret: "tempSecret", //For production, this should be placed in env variable outside of code
+    store
+}))
 
 
 //set headers to fix the CORS error
@@ -15,35 +32,20 @@ app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Headers", "Content-Type");
     next();
 })
-//Use multer to access form data
-//cors module for cors error?
 
-app.get('/orders', (req, res) => {
-    res.json('We did it!');
-});
+//Mount the Routers
+app.use('/orders', orders);
+app.use('/cart', cart);
 
-//upload.none - multer method to parse form data and attached to body
-app.post('/orders', upload.none(), (req, res) => {
-    console.log("Caught Order!");
-    db.run('INSERT INTO orderTests (first_name, last_name, address1, address2, product_type) VALUES ($firstName, $lastName, $address1, $address2, $product)', 
-        {
-            $firstName: req.body.customerFirstName,
-            $lastName: req.body.customerLastName,
-            $address1: req.body.address1,
-            $address2: req.body.address2,
-            $product: req.body.productSelect
-        }, function(error) {
-            if(error) {
-                console.log(error);
-                return;
-            }
-            else {
-                console.log(`Order #${this.lastID} added to the database`);
-            }
-        })
-    console.log(req.body);
-    res.json('Test');
-});
+ 
+//directs the server to pull static pages like other html/css/images to the appropriate directory
+//__dirname refers to the current directory running the serve JS file
+app.use(express.static(path.join(__dirname, '..')));
+
+//request the home page of the website
+app.get('/daisyajewelry.com', (req, res, next) => {
+    res.sendFile(path.join(__dirname, '..', 'index.html'));
+})
 
 
 
