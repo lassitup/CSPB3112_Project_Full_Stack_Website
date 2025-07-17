@@ -17,9 +17,11 @@
         </div>
 
         <!--Shopping Cart Icon-->
-        <svg xmlns="http://www.w3.org/2000/svg"  fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16" id="shopping-cart"> 
+        <a href="/cart.html">
+            <svg xmlns="http://www.w3.org/2000/svg"  fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16" id="shopping-cart"> 
             <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
-        </svg>
+            </svg>
+        </a>
         
          <!--BootStrap Navbar Boilerplate Code -->
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -57,7 +59,7 @@
         </nav>
         <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="./index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="/index.html">Home</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Bracelets</li>
             </ol>
         </nav>
@@ -75,13 +77,13 @@
                     <div id="carouselExampleFade" class="carousel slide carousel-fade" style="max-height: 800px;">
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                            <img src="./Images/bracelet_example3 edited.jpg" class="d-block w-100" alt="..." style="object-fit:contain; max-height: 800px; border-radius: 25px">
+                            <img src="/Images/bracelet_example3 edited.jpg" class="d-block w-100" alt="..." style="object-fit:contain; max-height: 800px; border-radius: 25px">
                             </div>
                             <div class="carousel-item">
-                            <img src="./Images/IMG_4519.JPG" class="d-block w-100" alt="..." style="object-fit:contain; max-height: 800px; border-radius: 25px">
+                            <img src="/Images/IMG_4519.JPG" class="d-block w-100" alt="..." style="object-fit:contain; max-height: 800px; border-radius: 25px">
                             </div>
                             <div class="carousel-item">
-                            <img src="./Images/IMG_6439.png"class="d-block w-100" alt="..." style="object-fit:contain; max-height: 800px; border-radius: 25px">
+                            <img src="/Images/IMG_6439.png"class="d-block w-100" alt="..." style="object-fit:contain; max-height: 800px; border-radius: 25px">
                             </div>
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
@@ -94,12 +96,15 @@
                         </button>
                     </div>
                 </div>
-                <div class="col-xl-5 col-xxl-3">
-                    <div class="content-container">
-                        <p style="min-height: 400px;">
-                            Product Description will go here
+                <div class="col-xl-5 col-xxl-5">
+                    <div class="bg-body-tertiary p-3 content-container">
+                        <!--Order Form for Bracelets - Order Specific details to be selected here by the customer-->
+                        <p>
+                            Wear your memories with a bracelet the contains just that. Within our bracelet mold, we can embed flowers, cat fur, or really anything as long as it's small enough to fit the mold! As noted within our <a href="">About page </a>, our first bracelets made were inspired from the passing of our beloved grandmother. Using the flowers from the funeral, we created a wearable memory for the entire family.
+
                         </p>
-                        <p>Order From Daisy A. Jewels!</p>
+                        <span id="price">$30.00 per Bracelet</span><br><br>
+
                         <form action="./cart/add" method="POST" id="form" enctype="multipart/form-data">
 
                             <label for="metalType">Select Metal Type</label>
@@ -112,8 +117,34 @@
                                 <option value="sterling">Sterling</option>
                                 <option value="goldPlated">Gold Plated</option>
                                 <option value="roseGold">Rose Gold</option>
-                                
                             </select>
+                            <hr>
+                            <label for="wristSize">Select Wrist Size and Quantity</label>
+                            <select name="wristSize" id="wristSize" required> 
+                                <option value=""> -- Pleast Select A Size -- </option>
+                                <option value="5.5">5.5"</option>
+                                <option value="6">6"</option>
+                                <option value="6.5">6.5"</option>
+                                <option value="7">7"</option>
+                                <option value="7.5">7.5"</option>
+                                <option value="8">8"</option>
+                                <option value="8.5">8.5"</option>
+                            </select>
+                            <hr>
+                            <!--Will need to come back and update this so it allows for selecting multiples sizes per order
+                            Keep it simple for right now-->
+                            <!--Could also add an option to add additional to cart before redirecting to the cart-->
+                            <label for="quantity">Select the number of bracelets to order</label>
+                            <input type="number" id="quantity" name="quantity" value="1" min="1" max="12"><br>
+                            <span style="font-size: small;">If order is larger than 12 bracelets, there will be a surcharge of $3.00 per Bracelet</span><br><br>
+                            <span>Total Price Before Tax and Shipping:</span>
+                            <span id="totalPrice"></span>
+                            <hr>
+                            <label for="orderNotes">Please provide any other details regarding your order. If you have questions prior to placing an order, please contact me <a href="">here</a>. Instructions for sending in personal components will be provided at checkout.</label><br><br>
+                            <textarea id="orderNotes" name="orderNotes" rows="3" cols="40"></textarea>
+
+                            <hr>
+
                             <button type="submit">Add to Cart</button>
                         </form>
                     </div>    
