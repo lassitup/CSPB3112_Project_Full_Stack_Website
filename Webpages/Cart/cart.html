@@ -56,33 +56,36 @@
         </nav>
     </header>
      <main>
-        <p>Cart Contents</p>
-        <div class="container"></div>
-            <div class="row mx-0">
-                <div class="col" id="cartGrid"> 
-                    <table class="mx-auto" id="cart_table">
-                        <thead>
-                            <tr>
-                                <th>Item #</th>
-                                <th>Product Type</th>
-                                <th>Metal Type</th>
-                                <th>Size</th>
-                                <th>Quantity</th>
-                                <th>Order Notes</th>
-                                <th>Price /Unit</th>
-                                <th>Extended Price</th>
-                            
-                            </tr>
-                        </thead>
+        <!--Need to fix this so it adapts to screen size - maybe make it so grid collapses and user and expand line items-->
+        <div class="container-fluid">
+            <p>Cart Contents</p>
+            <div class="container"></div>
+                <div class="row mx-0">
+                    <div class="col" id="cartGrid"> 
+                        <table class="mx-auto" id="cart_table">
+                            <thead>
+                                <tr>
+                                    <th>Item #</th>
+                                    <th>Product Type</th>
+                                    <th>Metal Type</th>
+                                    <th>Size</th>
+                                    <th>Quantity</th>
+                                    <th>Price /Unit</th>
+                                    <th>Extended Price</th>
+                                    <th>Order Notes</th>
+                                
+                                </tr>
+                            </thead>
 
-                        <tbody id="tableBody">
+                            <tbody id="tableBody">
 
 
-                        </tbody>
-                    </table>
-                    <button id="toCheckout">Continue to Checkout</button>
-                </div>
+                            </tbody>
+                        </table>
+                        <a href="/checkout.html"><button id="toCheckout">Continue to Checkout</button></a>
+                    </div>
             </div>
+        </div>
     </main>
 
     <footer class="p-3 bg-body-tertiary mt-auto" id="footer">

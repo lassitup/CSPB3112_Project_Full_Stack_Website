@@ -9,7 +9,6 @@ const cart = express.Router();
 //open conection to the databse
 const db = new sqlite3.Database('../Database/daisyajewelry.db');
 
-
 cart.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE");
@@ -17,29 +16,27 @@ cart.use((req, res, next) => {
     next();
 })
 
-
 //create and add and remove item functions to avoid repitition
-
 cart.get('/', (req, res) => {
     res.json('We did it!');
 });
 
+//add function that updates total price after something is added and removed
 //upload.none - multer method to parse form data and attached to body
 cart.post('/addBracelet', upload.none(), (req, res) => {
     req.body.productType = 'Bracelet';
     req.session.cart[req.session.itemNumber] = req.body;
     req.session.itemNumber++;
-    console.log(req.session.cart);
-    res.redirect('/cart.html');
+    //res.redirect('/cart.html');
+    res.send();
 });
-
 
 cart.get('/getCart', (req, res) => {
     res.json(req.session.cart);
 });
 
 cart.get('/getPrices', (req, res) => {
-    db.all('SELECT * FROM PRODUCTS', (err, rows) =>
+    db.all('SELECT * FROM Products', (err, rows) =>
     {
         if(err){
             //need to detemrine how to handle the error
@@ -50,14 +47,24 @@ cart.get('/getPrices', (req, res) => {
     //need to close database connection once done
 })
 
+cart.get('/getTotalPrice', (req, res) => {
+    res.send(req.session.cart.totalPrice);
+})
+
+//express.text middleware parses data received into text/string
 cart.delete('/removeFromCart', express.text(), (req, res) => {
+    //determine how to respond if cart is empty - shouldn't matter as user
+    //can only remove by selecting the element, but just in case
     const removeKey = req.body;
-    console.log(removeKey)
     delete req.session.cart[removeKey];
-    console.log(req.session.cart)
     res.send();
     //need to add exception handling
 });
+
+cart.put('/updateTotal', express.text(), (req, res) => {
+    req.session.cart.totalPrice = Number(req.body);
+    res.send();
+})
 
 
 

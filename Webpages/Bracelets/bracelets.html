@@ -99,13 +99,14 @@
                 <div class="col-xl-5 col-xxl-5">
                     <div class="bg-body-tertiary p-3 content-container">
                         <!--Order Form for Bracelets - Order Specific details to be selected here by the customer-->
+                        <h5>Description</h5>
                         <p>
                             Wear your memories with a bracelet the contains just that. Within our bracelet mold, we can embed flowers, cat fur, or really anything as long as it's small enough to fit the mold! As noted within our <a href="">About page </a>, our first bracelets made were inspired from the passing of our beloved grandmother. Using the flowers from the funeral, we created a wearable memory for the entire family.
 
                         </p>
                         <span id="price">$30.00 per Bracelet</span><br><br>
 
-                        <form action="./cart/add" method="POST" id="form" enctype="multipart/form-data">
+                        <form action="cart/add" method="POST" id="form" enctype="multipart/form-data">
 
                             <label for="metalType">Select Metal Type</label>
                             <select name="metalType" id="metalType" required> 
@@ -140,13 +141,15 @@
                             <span>Total Price Before Tax and Shipping:</span>
                             <span id="totalPrice"></span>
                             <hr>
-                            <label for="orderNotes">Please provide any other details regarding your order. If you have questions prior to placing an order, please contact me <a href="">here</a>. Instructions for sending in personal components will be provided at checkout.</label><br><br>
+                            <label for="orderNotes">Please provide details on what you would like placed within the bracelet mold (cat fur, flowers, etc.) and any other details regarding your order. If you have questions prior to placing an order, please contact me <a href="">here</a>. Instructions for sending in personal items will be provided at checkout.</label><br><br>
                             <textarea id="orderNotes" name="orderNotes" rows="3" cols="40"></textarea>
-
                             <hr>
-
+                            <!--Change this so it doesn't redirect to cart when added, but add 2nd button that links to cart-->
+                            <!--Change to have it show a message that it was successfully added to the cart instead-->
                             <button type="submit">Add to Cart</button>
+                            <a href="/cart.html"><button type="button">View Cart</button></a>
                         </form>
+                        <div id="cartAdded">Item aded to the cart!</div>
                     </div>    
                 </div>
             </div>  
@@ -163,6 +166,6 @@
         </div>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
-    <script src="./products.js"></script>
+    <script src="./bracelets.js"></script>
 </body>
 </html>

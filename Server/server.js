@@ -9,6 +9,8 @@ const cart = require('./cart.js');
 //To handle sessions, need pckages:
 //express-session
 
+//Continue using multer for handling form inputs - express can handle this natively, but we might
+//want to add the ability to upload a file later, which needs multer
 
 //Establish Express Server
 const app = express();
@@ -59,6 +61,7 @@ app.use(express.static(path.join(__dirname, '..', 'Webpages', 'HomePage')));
 app.use(express.static(path.join(__dirname, '..', 'Webpages', 'Bracelets')));
 app.use(express.static(path.join(__dirname, '..', 'Webpages', 'Cart')));
 app.use(express.static(path.join(__dirname, '..', 'Webpages', 'Dasboard')));
+app.use(express.static(path.join(__dirname, '..', 'Webpages', 'Checkout')));
 
 //request the home page of the website
 app.get('/daisyajewelry.com', (req, res, next) => {

@@ -1,5 +1,6 @@
 main {
     background-color: #d5d0cf;
+    min-height: 72vh;
 }
 
 #name {
@@ -19,27 +20,9 @@ main {
     margin: 0 50px;
 }
 
-#cartGrid {
-    text-align: center;
-    padding: 0;
-    width: 100%;
-    margin-top: 20px;
+input {
+    border-radius: 5px;
 }
-
-#cart_table {
-    margin: 0;
-}
-
-th {
-    padding: 0 3.5rem;
-    border: 2px solid black;
-    background-color:khaki;
-}
-
-td {
-    border: solid 2px black;
-}
-
 
 #footer {
     font-family: Felipa;

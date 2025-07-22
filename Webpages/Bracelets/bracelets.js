@@ -31,9 +31,20 @@ async function sendData(submissionData) {
       throw new Error(`Response status: ${response.status}`);
     }
     //checks if the response contains a redirection to a new page
-   else if (response.redirected) {
+   /*else if (response.redirected) {
       window.location = response.url;
-    }
+    }*/
+   else {
+    //provide a notifcation that item successfully added to cart
+    //could build out div in html doc, when this returns 'unhide' it and call a function to hide after
+    //a period of time
+    const alert = document.getElementById('cartAdded');
+    alert.style.display = 'block';
+    setTimeout(() => {
+      alert.style.display = 'none';
+    }, 2000);
+     //window.alert('Item successfully added to cart!');
+   }
   } catch (error) {
     console.error(error.message);
   }
@@ -45,9 +56,6 @@ async function sendData(submissionData) {
 
 //holds the base price per unit - going to change this to a database query - keep all prices in a table
 const unitPrice = 30.00;
-
-
-
 
 
 const quantity = document.getElementById('quantity')

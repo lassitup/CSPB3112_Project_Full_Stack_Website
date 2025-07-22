@@ -40,6 +40,9 @@ main {
     border-radius: 15px;
 }
 
+#cartAdded{
+    display: none;
+}
 
 #footer {
     font-family: Felipa;
