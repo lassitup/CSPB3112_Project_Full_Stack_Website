@@ -40,6 +40,13 @@ main {
     border-radius: 15px;
 }
 
+
+#orderNotes {
+    resize: both;
+    width: 100%;
+    max-width: 100%;
+}
+
 #cartAdded{
     display: none;
 }

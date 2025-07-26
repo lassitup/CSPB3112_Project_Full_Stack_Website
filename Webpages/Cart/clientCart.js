@@ -45,7 +45,7 @@ const displayCart = (cart_data, prices) => {
       newRow[0].innerHTML = itemNumber;
       newRow[1].innerHTML = cart_data[cartItem].productType; 
       newRow[2].innerHTML = cart_data[cartItem].metalType; 
-      newRow[3].innerHTML = cart_data[cartItem].wristSize; 
+      newRow[3].innerHTML = cart_data[cartItem].size; 
       newRow[4].innerHTML = cart_data[cartItem].quantity; 
       newRow[5].innerHTML = `$${current_price.toFixed(2)}`;
       newRow[6].innerHTML = `$${(current_price * cart_data[cartItem].quantity).toFixed(2)}`;

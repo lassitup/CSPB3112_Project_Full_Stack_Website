@@ -21,7 +21,7 @@ const getFormInputs = (event) => {
 //Need to use  event type 'submit' on the event listener
 formParent.addEventListener('submit', getFormInputs);
 
-
+//make it so the submit button doesn't appear / able to be pressed until this completes
 //could add this function to a utility file and import - add a parameter so we can call with the desired server route?
 async function sendData(submissionData) {
   const url = "http://localhost:3000/orders/submitOrder";
@@ -49,6 +49,7 @@ async function getTotalPrice() {
       throw new Error(`Response status: ${response.status}`);
     }
     const value = await response.text();
+
      return Number(value);
   } catch (error) {
     console.error(error.message);
@@ -66,13 +67,12 @@ async function calculateTax(totalPrice, zip) {
     }
   try {
     const response = await fetch(url, submissionData);
-    console.log(response);
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
     return await response.json();
   } catch (error) {
-    console.error(error.message);
+      console.error(error.message);
   }
 }
 
@@ -82,14 +82,81 @@ async function calculateTax(totalPrice, zip) {
 async function calculateTotal() {
 
   const price = await getTotalPrice();
-  console.log(price);
-  const tax = await calculateTax(price, 47546);
-  const total = price + tax;
-  console.log(tax);
-  //add these results to the DOM and then post them to the server
+  console.log(price);  const tax = await calculateTax(price, 47546);
+  const total = price + tax[0].state_tax;
 
+  //add the tax and new total to the DOM
+  display_summary(tax[0].state_tax, total);
+
+  //update the session on the server
+  sendPriceData(tax[0].state_tax, total);
 }
+
+
+//function to submit the tax amount and the total price with tax
+async function sendPriceData(tax, total) {
+  const url = "http://localhost:3000/cart/updateTaxAndPrice";
+  submissionData = {
+    method: "PUT",
+    body: JSON.stringify({ 
+            tax,
+            total
+          }),
+    headers: {
+      "Content-Type": "application/json"
+    }
+
+  }
+  console.log(submissionData.body);
+  try {
+    const response = await fetch(url, submissionData);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+
+    //update button state to allow user to press/activate - 
+    // ensures data was reeived by server before submitting the order
+    //Could maybe refactor this to be included as hidden element in form submission
+    //come back to and review
+    const submitButton = document.getElementById('submitButton');
+
+    submitButton.removeAttribute('disabled');
+    
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+
 
  const zip = document.getElementById('zip');
 
  zip.addEventListener('change', calculateTotal);
+
+ //call and populate right away
+
+ //display total price
+  
+async function display_summary(tax, totalAndTax) {
+  //if the argumentsare empty, just populate the initial total
+  if(tax === undefined){
+    const initialPrice = document.getElementById('initialPrice');
+    const priceCell = document.createElement('td');
+    priceCell.innerHTML = await getTotalPrice();
+    initialPrice.insertAdjacentElement('afterend', priceCell);
+  }
+  else {
+    //otherwise, the initial amount is already populated so just populated the tax and new total
+    const salesTax = document.getElementById('salesTax');
+    const taxCell = document.createElement('td');
+    taxCell.innerHTML = tax;
+    salesTax.insertAdjacentElement('afterend', taxCell);
+
+    const totalPrice = document.getElementById('totalPrice');
+    const totalCell = document.createElement('td');
+    totalCell.innerHTML = totalAndTax;
+    totalPrice.insertAdjacentElement('afterend', totalCell);
+  }
+}
+
+
+display_summary();

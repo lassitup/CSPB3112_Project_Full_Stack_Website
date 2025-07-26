@@ -55,15 +55,53 @@ async function sendData(submissionData) {
 //------ Logic to update estimated total pricing in the order form ------ //
 
 //holds the base price per unit - going to change this to a database query - keep all prices in a table
-const unitPrice = 30.00;
+//attach the product id from the database query to the form submission - attaches it to the cart
 
 
-const quantity = document.getElementById('quantity')
-const  totalPrice = document.getElementById('totalPrice')
+async function getUnitPrice() {
+  const url = "http://localhost:3000/cart/getBraceletUnitPrice";
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+    return await response.json();
+  } 
+  catch (error) {
+    console.error(error.message);
+  }
+}
+
+
+
+async function updatePrice() {
+  
+  //query database for the current product price
+  const unit = await getUnitPrice();
+  const quantity = document.getElementById('quantity');
+  const  totalPrice = document.getElementById('totalPrice');
+
+  //hidden form input
+  const  extendedPrice = document.getElementById('extendedPrice');
+  const  productID = document.getElementById('product_id');
+  
+  //display the extended price on the page
+  totalPrice.innerHTML = `$${(quantity.value * unit.UNIT_PRICE).toFixed(2)}`;
+  
+  //set hidden form input values as the extended price and productID to be submitted to the server
+  extendedPrice.setAttribute('value', quantity.value * unit.UNIT_PRICE);
+  productID.setAttribute('value', unit.PRODUCT_ID);
+
+}
+
+
+
+/*
 
 const updatePrice = () => {
   totalPrice.innerHTML = `$${(quantity.value * unitPrice).toFixed(2)}`;
-};
+  extendedPrice.setAttribute('value', quantity.value * unitPrice);
+};*/
 
 //Call to update with the initial price
 updatePrice();
