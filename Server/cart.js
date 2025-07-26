@@ -27,7 +27,6 @@ cart.post('/addBracelet', upload.none(), (req, res) => {
     req.body.productType = 'Bracelet';
     req.session.cart[req.session.itemNumber] = req.body;
     req.session.itemNumber++;
-    //res.redirect('/cart.html');
     res.send();
 });
 
@@ -39,16 +38,31 @@ cart.get('/getPrices', (req, res) => {
     db.all('SELECT * FROM Products', (err, rows) =>
     {
         if(err){
-            //need to detemrine how to handle the error
+            //need to detemrine how to handle the error - set error code
             res.send()
+            return;
         }
         res.json(rows);
     })
     //need to close database connection once done
 })
 
+
+cart.get('/getBraceletUnitPrice', (req, res) => {
+    //query the product table for the price of the unit
+    db.get("SELECT * FROM Products WHERE PRODUCT_DESCRIPTION='Bracelet'", (err, row) => {
+        if(err){
+            //need to detemrine how to handle the error - set error code
+            res.send()
+            return;
+        }
+        res.json(row);
+    });
+})
+
+
 cart.get('/getTotalPrice', (req, res) => {
-    res.send(req.session.cart.totalPrice);
+    res.send(req.session.totalPrice);
 })
 
 //express.text middleware parses data received into text/string
@@ -62,7 +76,14 @@ cart.delete('/removeFromCart', express.text(), (req, res) => {
 });
 
 cart.put('/updateTotal', express.text(), (req, res) => {
-    req.session.cart.totalPrice = Number(req.body);
+    req.session.totalPrice = Number(req.body);
+    res.send();
+})
+
+cart.put('/updateTaxAndPrice', express.json(), (req, res) => {
+    console.log(req.body);
+    req.session.tax = req.body.tax;
+    req.session.totalWithTax = req.body.total;
     res.send();
 })
 
