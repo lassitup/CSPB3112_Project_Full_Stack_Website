@@ -80,11 +80,15 @@ async function updatePrice() {
   const unit = await getUnitPrice();
   const quantity = document.getElementById('quantity');
   const  totalPrice = document.getElementById('totalPrice');
+  const  unitPrice= document.getElementById('price');
 
   //hidden form input
   const  extendedPrice = document.getElementById('extendedPrice');
   const  productID = document.getElementById('product_id');
   
+
+  //display the unit price on the page
+  unitPrice.innerHTML = `$${unit.UNIT_PRICE.toFixed(2)} per Bracelet`;
   //display the extended price on the page
   totalPrice.innerHTML = `$${(quantity.value * unit.UNIT_PRICE).toFixed(2)}`;
   

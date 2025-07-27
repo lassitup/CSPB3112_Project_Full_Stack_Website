@@ -84,7 +84,12 @@ async function updatePrice() {
   //hidden form input
   const  extendedPrice = document.getElementById('extendedPrice');
   const  productID = document.getElementById('product_id');
+  const  unitPrice= document.getElementById('price');
   
+
+
+  //display the unit price on the page
+  unitPrice.innerHTML = `$${unit.UNIT_PRICE.toFixed(2)} per Necklace`;
   //display the extended price on the page
   totalPrice.innerHTML = `$${(quantity.value * unit.UNIT_PRICE).toFixed(2)}`;
   
