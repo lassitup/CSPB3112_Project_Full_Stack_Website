@@ -25,14 +25,21 @@ cart.get('/', (req, res) => {
 //add function that updates total price after something is added and removed
 //upload.none - multer method to parse form data and attached to body
 cart.post('/addBracelet', upload.none(), (req, res) => {
-    req.body.productType = 'bracelet';
+    req.body.productType = 'Bracelet';
     req.session.cart[req.session.itemNumber] = req.body;
     req.session.itemNumber++;
     res.send();
 });
 
 cart.post('/addNecklace', upload.none(), (req, res) => {
-    req.body.productType = 'necklace';
+    req.body.productType = 'Necklace';
+    req.session.cart[req.session.itemNumber] = req.body;
+    req.session.itemNumber++;
+    res.send();
+});
+
+cart.post('/addKeychain', upload.none(), (req, res) => {
+    req.body.productType = 'Keychain';
     req.session.cart[req.session.itemNumber] = req.body;
     req.session.itemNumber++;
     res.send();
@@ -50,6 +57,8 @@ cart.get('/getProducts', dbMiddleware.getAllProducts);
 cart.get('/getBraceletUnitPrice', dbMiddleware.getUnitPrice('1'));
 
 cart.get('/getNecklaceUnitPrice', dbMiddleware.getUnitPrice('2'));
+
+cart.get('/getKeychainUnitPrice', dbMiddleware.getUnitPrice('3'));
 
 
 cart.get('/getTotalPrice', (req, res) => {

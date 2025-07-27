@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Felipa&display=swap" rel="stylesheet">
-    <link href="/Bracelets/bracelets.css" rel="stylesheet">
+    <link href="/Keychains/keychains.css" rel="stylesheet">
     <title>Daisy A. Jewelry</title>
     
 
@@ -47,8 +47,8 @@
                     Products
                     </a>
                     <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Bracelets</a></li>
-                    <li><a class="dropdown-item" href="/Keychains/keychains.html">Keychains</a></li>
+                    <li><a class="dropdown-item" href="/Bracelets/bracelets.html">Bracelets</a></li>
+                    <li><a class="dropdown-item" href="#">Keychains</a></li>
                     <li><a class="dropdown-item" href="/Necklaces/necklaces.html">Necklaces</a></li>
 
                     </ul>
@@ -60,14 +60,14 @@
         <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/index.html">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Bracelets</li>
+                <li class="breadcrumb-item active" aria-current="page">Keychains</li>
             </ol>
         </nav>
     </header>
      <main>
         <div class="container-fluid">
             <div class="row">
-                <p>Bracelets by Daisy A Jewelry</p>
+                <p>Keychains by Daisy A Jewelry</p>
             </div>
         </div>
         <div class="container-fluid">
@@ -77,13 +77,10 @@
                     <div id="carouselExampleFade" class="carousel slide carousel-fade" style="max-height: 800px;">
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                            <img src="/Bracelets/Images/bracelet_example3 edited.jpg" class="d-block w-100" alt="..." style="object-fit:contain; max-height: 800px; border-radius: 25px">
+                            <img src="/Keychains/Images/keychain_example1.JPG" class="d-block w-100" alt="..." style="object-fit:contain; max-height: 800px; border-radius: 25px">
                             </div>
                             <div class="carousel-item">
-                            <img src="/Bracelets/Images/IMG_4519.JPG" class="d-block w-100" alt="..." style="object-fit:contain; max-height: 800px; border-radius: 25px">
-                            </div>
-                            <div class="carousel-item">
-                            <img src="/Bracelets/Images/IMG_6439.png"class="d-block w-100" alt="..." style="object-fit:contain; max-height: 800px; border-radius: 25px">
+                            <img src="/Keychains/Images/keychain_example2.JPG" class="d-block w-100" alt="..." style="object-fit:contain; max-height: 800px; border-radius: 25px">
                             </div>
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
@@ -101,49 +98,36 @@
                         <!--Order Form for Bracelets - Order Specific details to be selected here by the customer-->
                         <h5>Description</h5>
                         <p>
-                            Wear your memories with a bracelet the contains just that. Within our bracelet mold, we can embed flowers, cat fur, or really anything as long as it's small enough to fit the mold! As noted within our <a href="">About page </a>, our first bracelets made were inspired from the passing of our beloved grandmother. Using the flowers from the funeral, we created a wearable memory for the entire family.
-
+                            Hang your memories on your keys, or anywhere else! Within our keychain mold, we can embed flowers, cat fur, or really anything as long as it's small enough to fit the mold! As noted within our <a href="">About page </a>, we first started making bracelets, which were inspired from the passing of our beloved grandmother. Using the flowers from the funeral, we created a wearable memory for the entire family.
                         </p>
                         <!--This needs to be based on the price in the product table in db-->
+                        <!--could have a base price and then add a premium to the base - use another table to record premium price - something to consider-->
                         <span id="price"></span><br><br>
 
-                        <form action="/addBracelet" method="POST" id="form" enctype="multipart/form-data">
+                        <form action="/addKeychain" method="POST" id="form" enctype="multipart/form-data">
 
                             <label for="metalType">Select Metal Type</label>
                             <select name="metalType" id="metalType" required> 
                                 <option value=""> -- Pleast Select A Metal -- </option>
-                                <option value="Plated Silver">Plated Silver</option>
-                                <option value="Antique Copper">Antique Copper</option>
-                                <option value="Antique Bronze">Antique Bronze</option>
-                                <option value="Black">Black</option>
-                                <option value="Sterling">Sterling</option>
-                                <option value="Gold Plated">Gold Plated</option>
+                                <option value="Yellow Gold">Yellow Gold</option>
+                                <option value="White Gold">White Gold</option>
                                 <option value="Rose Gold">Rose Gold</option>
+                                <option value="Solid Gold">Solid Gold</option>
+                                <option value="Solid White Gold">Solid White Gold</option>
+                                <option value="Solid Rose Gold">Sold Rose Gold</option>
                             </select>
-                            <hr>
-                            <!--change to size as name-->
-                            <label for="wristSize">Select Wrist Size</label>
-                            <select name="size" id="wristSize" required> 
-                                <option value=""> -- Pleast Select A Size -- </option>
-                                <option value="5.5">5.5"</option>
-                                <option value="6">6"</option>
-                                <option value="6.5">6.5"</option>
-                                <option value="7">7"</option>
-                                <option value="7.5">7.5"</option>
-                                <option value="8">8"</option>
-                                <option value="8.5">8.5"</option>
-                            </select>
+                            <input type="hidden" id="size" name="size" value="N/A"><br>
                             <hr>
                             <!--Will need to come back and update this so it allows for selecting multiples sizes per order
                             Keep it simple for right now-->
                             <!--Could also add an option to add additional to cart before redirecting to the cart-->
-                            <label for="quantity">Select the number of bracelets to order</label>
+                            <label for="quantity">Select the number of keychains to order</label>
                             <input type="number" id="quantity" name="quantity" value="1" min="1" max="12"><br>
-                            <span style="font-size: small;">*If total number ordered is greater than 12 bracelets, there will be a surcharge of $3.00 per bracelet</span><br><br>
+                            <span style="font-size: small;">If order is larger than 12 keychains, there will be a surcharge of $3.00 per keychain</span><br><br>
                             <span>Total Price Before Tax and Shipping:</span>
                             <span id="totalPrice"></span>
                             <hr>
-                            <label for="orderNotes">Please provide details on what you would like placed within the bracelet mold (cat fur, flowers, etc.) and any other details regarding your order. If you have questions prior to placing an order, please contact me <a href="">here</a>. Instructions for sending in personal items will be provided at checkout.</label><br><br>
+                            <label for="orderNotes">Please provide details on what you would like placed within the keychain mold (cat fur, flowers, etc.) and any other details regarding your order. If you have questions prior to placing an order, please contact me <a href="">here</a>. Instructions for sending in personal items will be provided at checkout.</label><br><br>
                             <textarea id="orderNotes" name="orderNotes" rows="3"></textarea>
                             <hr>
                             <input type="hidden" id="extendedPrice" name="extendedPrice">
@@ -170,6 +154,6 @@
         </div>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
-    <script src="/Bracelets/bracelets.js"></script>
+    <script src="/Keychains/keychains.js"></script>
 </body>
 </html>

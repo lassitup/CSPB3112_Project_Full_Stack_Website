@@ -24,13 +24,17 @@ const displayCart = (cart_data, prices) => {
   for (let cartItem in cart_data) {
     let current_price;
     //determine the type of product being added - different products might have different characteristics
-    if(cart_data[cartItem].productType === 'bracelet'){
+    if(cart_data[cartItem].productType === 'Bracelet'){
       
       current_price = findPriceIndex(prices, 'bracelet');
     }  
-    else if(cart_data[cartItem].productType === 'necklace') {
+    else if(cart_data[cartItem].productType === 'Necklace') {
       current_price = findPriceIndex(prices, 'necklace');
     }
+    else if(cart_data[cartItem].productType === 'Keychain') {
+      current_price = findPriceIndex(prices, 'keychain');
+    }
+
     const newTr = document.createElement('tr');
     //set id of row added to identify for removal
     newTr.id = cartItem;
