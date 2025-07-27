@@ -68,7 +68,7 @@ const displayCart = (cart_data, prices) => {
 
 //query the prices for the units here from the database
 async function getPrices() {
-  const url = "http://localhost:3000/Cart/getPrices";
+  const url = "http://localhost:3000/Cart/getProducts";
   try {
     const response = await fetch(url);
     console.log(response.ok);

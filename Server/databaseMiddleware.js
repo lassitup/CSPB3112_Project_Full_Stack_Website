@@ -8,6 +8,11 @@ const sqlite3 = require('sqlite3')
 //write products_sold data
 
 //function to write customer data to the database
+
+
+
+/*  ------------------------------- Database Insertion Functions ------------------------------- */
+
 function insertCustomer(req, res, next) {
     const db = new sqlite3.Database('../Database/daisyajewelry.db');
 
@@ -24,6 +29,7 @@ function insertCustomer(req, res, next) {
             $email: req.body.email.toLowerCase()
     },  function(error) {
             if(error) {
+                db.close();
                 console.log(error);
                 //next(error);  - create next error handling function
             }
@@ -41,7 +47,7 @@ function insertOrder(req, res, next) {
 
     const db = new sqlite3.Database('../Database/daisyajewelry.db');
 
-    db.run('INSERT INTO Orders (CUSTOMER_ID, TOTAL_PRICE, SALES_TAX, TOTAL_PRICE_TAX, ORDER_DATE, ORDER_STATUS) VALUES ($customer_id, $total_price, $sales_tax, $total_price_tax, $order_date, $order_status) ', {
+    db.run('INSERT INTO Orders (CUSTOMER_ID, TOTAL_PRICE, SALES_TAX, TOTAL_PRICE_TAX, ORDER_DATE, ORDER_STATUS) VALUES ($customer_id, $total_price, $sales_tax, $total_price_tax, $order_date, $order_status)', {
         $customer_id: req.body.customerNum,
         $total_price: req.session.totalPrice,
         $sales_tax: req.session.tax,
@@ -50,6 +56,7 @@ function insertOrder(req, res, next) {
         $order_status: 'unfulfilled'
     }, function(error) {
         if(error) {
+            db.close();
             //need to remove previously added record in customers if there was an error
             console.log(error);
             //next(error);  - create next error handling function
@@ -76,19 +83,62 @@ function insertProductSold(req, res, next) {
             $size: req.session.cart[product].size,
             $extended_price: req.session.cart[product].extendedPrice,
         }, function(error) {
+            db.close();
             if(error) {
                 //need to remove previously added record in customers and orders if there was an error
-                //console.log(error);
-                res.status(500).send("Test");
+                res.status(500).send();
+                return;
             }
             else {
                 console.log(`Produc Sold ID #${this.lastID} added to the Products Sold table`);
                 next();
             }
-            
         }
         )
     }  
 }
 
-module.exports = {insertCustomer, insertOrder, insertProductSold};
+
+/*  ------------------------------- Database Query Functions ------------------------------- */
+
+
+function getAllProducts(req, res, next) {
+
+    const db = new sqlite3.Database('../Database/daisyajewelry.db');
+
+    db.all('SELECT * FROM Products', (err, rows) =>
+    {
+        db.close();
+        if(err){
+            //need to detemrine how to handle the error - set error code
+            res.status(500).send()
+            //next(error);  - create next error handling function
+        } else {
+            res.json(rows);
+        }
+    })
+    //need to close database connection once done
+}
+
+function getUnitPrice(productID) {
+    //returns a middleware function, but it has access to the input parameter in the parent function
+    return function (req, res, next) {
+    const db = new sqlite3.Database('../Database/daisyajewelry.db');
+     
+    db.get('SELECT * FROM Products WHERE PRODUCT_ID = $id', {
+        $id: productID
+    }, (err, row) => {
+        db.close();
+        if(err){
+            //need to detemrine how to handle the error - set error code
+            res.status(500).send()
+            //next(error);  - create next error handling function
+        } else {
+            res.json(row);
+        }
+    });
+    }
+}
+
+
+module.exports = {insertCustomer, insertOrder, insertProductSold, getAllProducts, getUnitPrice};

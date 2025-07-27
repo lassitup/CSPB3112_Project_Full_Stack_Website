@@ -42,8 +42,10 @@ app.use((req, res, next) => {
         req.session.cart = {};
         req.session.itemNumber = 1;
         next()
+    } else {
+        next();
     }
-    next();
+
 })
 
 //Mount the Routers
@@ -55,17 +57,18 @@ app.use('/cart', cart);
 //__dirname refers to the current directory running the serve JS file
 
 
-//app.use(express.static(path.join(__dirname, '..', 'Webpages')));
+app.use(express.static(path.join(__dirname, '..', 'Webpages')));
 
-app.use(express.static(path.join(__dirname, '..', 'Webpages', 'HomePage')));
+/*app.use(express.static(path.join(__dirname, '..', 'Webpages', 'HomePage')));
 app.use(express.static(path.join(__dirname, '..', 'Webpages', 'Bracelets')));
+app.use(express.static(path.join(__dirname, '..', 'Webpages', 'Necklaces')))
 app.use(express.static(path.join(__dirname, '..', 'Webpages', 'Cart')));
 app.use(express.static(path.join(__dirname, '..', 'Webpages', 'Dasboard')));
-app.use(express.static(path.join(__dirname, '..', 'Webpages', 'Checkout')));
+app.use(express.static(path.join(__dirname, '..', 'Webpages', 'Checkout')));*/
 
 //request the home page of the website
 app.get('/daisyajewelry.com', (req, res, next) => {
-    res.sendFile(path.join(__dirname, '..', 'Webpages', 'HomePage', 'index.html'));
+    res.sendFile(path.join(__dirname, '..', 'Webpages', 'index.html'));
 })
 
 

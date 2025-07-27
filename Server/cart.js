@@ -2,6 +2,7 @@
 const express = require('express');
 const multer = require('multer');
 const sqlite3 = require('sqlite3')
+const dbMiddleware = require('./databaseMiddleware.js');
 
 const upload = multer();
 const cart = express.Router();
@@ -16,10 +17,10 @@ cart.use((req, res, next) => {
     next();
 })
 
-//create and add and remove item functions to avoid repitition
+/*//create and add and remove item functions to avoid repitition
 cart.get('/', (req, res) => {
     res.json('We did it!');
-});
+});*/
 
 //add function that updates total price after something is added and removed
 //upload.none - multer method to parse form data and attached to body
@@ -34,31 +35,12 @@ cart.get('/getCart', (req, res) => {
     res.json(req.session.cart);
 });
 
-cart.get('/getPrices', (req, res) => {
-    db.all('SELECT * FROM Products', (err, rows) =>
-    {
-        if(err){
-            //need to detemrine how to handle the error - set error code
-            res.send()
-            return;
-        }
-        res.json(rows);
-    })
-    //need to close database connection once done
-})
+cart.get('/getProducts', dbMiddleware.getAllProducts)
 
 
-cart.get('/getBraceletUnitPrice', (req, res) => {
-    //query the product table for the price of the unit
-    db.get("SELECT * FROM Products WHERE PRODUCT_DESCRIPTION='Bracelet'", (err, row) => {
-        if(err){
-            //need to detemrine how to handle the error - set error code
-            res.send()
-            return;
-        }
-        res.json(row);
-    });
-})
+//can consolidate this function into a catch all, attach the product type to the request and then query based on the requested item attached to req.body
+cart.get('/getBraceletUnitPrice', dbMiddleware.getUnitPrice('1'))
+
 
 
 cart.get('/getTotalPrice', (req, res) => {
