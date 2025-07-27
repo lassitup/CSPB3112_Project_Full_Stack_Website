@@ -51,7 +51,6 @@ async function sendData(submissionData) {
 }
 
 
-
 //------ Logic to update estimated total pricing in the order form ------ //
 
 //holds the base price per unit - going to change this to a database query - keep all prices in a table
