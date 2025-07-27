@@ -27,11 +27,10 @@ async function sendData(submissionData) {
   const url = "http://localhost:3000/orders/submitOrder";
   try {
     const response = await fetch(url, submissionData);
-    console.log(response.ok);
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
-    console.log(response.status);
+    window.location.href = response.url;
   } catch (error) {
     console.error(error.message);
   }
@@ -107,7 +106,6 @@ async function sendPriceData(tax, total) {
     }
 
   }
-  console.log(submissionData.body);
   try {
     const response = await fetch(url, submissionData);
     if (!response.ok) {

@@ -24,12 +24,10 @@ orders.use((req, res, next) => {
 const order_db_chain = [dbMiddleware.insertCustomer, dbMiddleware.insertOrder, dbMiddleware.insertProductSold]
 
 orders.post('/submitOrder', upload.none(), order_db_chain, (req, res) => {
-    res.redirect('/Checkout/orderConfirmation.html');
     req.session.cart = {};
     req.session.itemNumber = 1;
+    res.redirect(302, '/Checkout/orderConfirmation.html');
 })
-
-
 
 
 
