@@ -83,19 +83,20 @@ function insertProductSold(req, res, next) {
             $size: req.session.cart[product].size,
             $extended_price: req.session.cart[product].extendedPrice,
         }, function(error) {
-            db.close();
+
             if(error) {
                 //need to remove previously added record in customers and orders if there was an error
                 res.status(500).send();
                 return;
             }
             else {
-                console.log(`Produc Sold ID #${this.lastID} added to the Products Sold table`);
+                console.log(`Product Sold ID #${this.lastID} added to the Products Sold table`);
                 next();
             }
         }
         )
-    }  
+    } 
+    db.close();
 }
 
 

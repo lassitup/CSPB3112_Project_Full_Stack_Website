@@ -22,46 +22,54 @@ const displayCart = (cart_data, prices) => {
   const parent = document.getElementById('tableBody');
   
   for (let cartItem in cart_data) {
-
+    let current_price;
     //determine the type of product being added - different products might have different characteristics
-    if(cart_data[cartItem].productType === 'Bracelet'){
+    if(cart_data[cartItem].productType === 'bracelet'){
       
-      const current_price = findPriceIndex(prices, 'Bracelet');
-      const newTr = document.createElement('tr');
-      //set id of row added to identify for removal
-      newTr.id = cartItem;
-      //establish array to hold all cells for the new row
-      const newRow = [];
-      //6 used as limit due to columns presented on cart table
-      for(let i = 0; i < 8; i++) {
-          newRow.push(document.createElement('td'));
-      }
-
-      const removeButton = document.createElement('button');
-      removeButton.addEventListener('click', removeFromCart);
-      newRow.push(removeButton);
-
-      
-      newRow[0].innerHTML = itemNumber;
-      newRow[1].innerHTML = cart_data[cartItem].productType; 
-      newRow[2].innerHTML = cart_data[cartItem].metalType; 
-      newRow[3].innerHTML = cart_data[cartItem].size; 
-      newRow[4].innerHTML = cart_data[cartItem].quantity; 
-      newRow[5].innerHTML = `$${current_price.toFixed(2)}`;
-      newRow[6].innerHTML = `$${(current_price * cart_data[cartItem].quantity).toFixed(2)}`;
-      newRow[7].innerHTML = cart_data[cartItem].orderNotes;
-      newRow[8].innerHTML = 'X'; 
-
-      totalPrice += current_price * cart_data[cartItem].quantity;
-
-      //append each new data cell to the new row
-      for(let i = 0; i < 9; i++) {
-          newTr.appendChild(newRow[i]);
-      }
-      parent.appendChild(newTr);
-      itemNumber++;
+      current_price = findPriceIndex(prices, 'bracelet');
     }  
-  }
+    else if(cart_data[cartItem].productType === 'necklace') {
+      current_price = findPriceIndex(prices, 'necklace');
+    }
+    const newTr = document.createElement('tr');
+    //set id of row added to identify for removal
+    newTr.id = cartItem;
+    //establish array to hold all cells for the new row
+    const newRow = [];
+    //6 used as limit due to columns presented on cart table
+    for(let i = 0; i < 8; i++) {
+        newRow.push(document.createElement('td'));
+    }
+
+    const removeButton = document.createElement('button');
+    removeButton.addEventListener('click', removeFromCart);
+    newRow.push(removeButton);
+
+    
+    newRow[0].innerHTML = itemNumber;
+    newRow[1].innerHTML = cart_data[cartItem].productType; 
+    newRow[2].innerHTML = cart_data[cartItem].metalType; 
+    newRow[3].innerHTML = cart_data[cartItem].size; 
+    newRow[4].innerHTML = cart_data[cartItem].quantity; 
+    newRow[5].innerHTML = `$${current_price.toFixed(2)}`;
+    newRow[6].innerHTML = `$${(current_price * cart_data[cartItem].quantity).toFixed(2)}`;
+    newRow[7].innerHTML = cart_data[cartItem].orderNotes;
+    newRow[8].innerHTML = 'X'; 
+
+    totalPrice += current_price * cart_data[cartItem].quantity;
+
+    //append each new data cell to the new row
+    for(let i = 0; i < 9; i++) {
+        newTr.appendChild(newRow[i]);
+    }
+    parent.appendChild(newTr);
+    itemNumber++;
+  }  
+
+
+
+
+  
   //send this total to the server and attach to the session
   updateTotal(totalPrice);
 }

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Felipa&display=swap" rel="stylesheet">
-    <link href="necklaces.css" rel="stylesheet">
+    <link href="/Necklaces/necklaces.css" rel="stylesheet">
     <title>Daisy A. Jewelry</title>
     
 
@@ -102,7 +102,7 @@
                         <!--could have a base price and then add a premium to the base - use another table to record premium price - something to consider-->
                         <span id="price">$30.00 per Necklace</span><br><br>
 
-                        <form action="cart/add" method="POST" id="form" enctype="multipart/form-data">
+                        <form action="/addNecklace" method="POST" id="form" enctype="multipart/form-data">
 
                             <label for="metalType">Select Metal Type</label>
                             <select name="metalType" id="metalType" required> 
@@ -146,7 +146,7 @@
                             <!--Change this so it doesn't redirect to cart when added, but add 2nd button that links to cart-->
                             <!--Change to have it show a message that it was successfully added to the cart instead-->
                             <button type="submit">Add to Cart</button>
-                            <a href="/cart.html"><button type="button">View Cart</button></a>
+                            <a href="/Cart/cart.html"><button type="button">View Cart</button></a>
                         </form>
                         <div id="cartAdded">Item aded to the cart!</div>
                     </div>    
@@ -165,6 +165,6 @@
         </div>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
-    <script src="/necklaces.css"></script>
+    <script src="/Necklaces/necklaces.js"></script>
 </body>
 </html>

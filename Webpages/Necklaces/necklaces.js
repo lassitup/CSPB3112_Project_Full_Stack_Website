@@ -23,7 +23,7 @@ formParent.addEventListener('submit', getFormInputs);
 
 
 async function sendData(submissionData) {
-  const url = "http://localhost:3000/cart/addBracelet";
+  const url = "http://localhost:3000/cart/addNecklace";
   try {
     const response = await fetch(url, submissionData);
     console.log(response.ok);
