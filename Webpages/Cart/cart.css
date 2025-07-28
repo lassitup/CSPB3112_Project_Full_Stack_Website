@@ -19,6 +19,15 @@ main {
     margin: 0 50px;
 }
 
+tbody button {
+    width: 100%;
+}
+
+.removeButton:hover {
+    background-color: rgb(226, 155, 147);
+    cursor: pointer;
+}
+/*
 #cartGrid {
     text-align: center;
     padding: 0;
@@ -39,7 +48,7 @@ th {
 td {
     border: solid 2px black;
 }
-
+*/
 
 #footer {
     font-family: Felipa;

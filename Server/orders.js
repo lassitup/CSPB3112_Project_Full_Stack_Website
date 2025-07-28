@@ -1,16 +1,12 @@
 //Express Router To Handle Final Submitted Orders
 
-
 const express = require('express');
 const multer = require('multer');
-const sqlite3 = require('sqlite3')
 const dbMiddleware = require('./databaseMiddleware.js');
+const path = require('path');
 
 const upload = multer();
 const orders = express.Router();
-
-//should we open and close the database within the route itself?
-//const db = new sqlite3.Database('../Database/daisyajewelry.db');
 
 
 orders.use((req, res, next) => {
@@ -20,15 +16,18 @@ orders.use((req, res, next) => {
     next();
 })
 
-
+//database functions used as middleWare to ensure that the database is written to sequentially
 const order_db_chain = [dbMiddleware.insertCustomer, dbMiddleware.insertOrder, dbMiddleware.insertProductSold]
 
+
+//execute the submission of order data to the database
+//reset the user cart in the session once orders are successfully recorded
 orders.post('/submitOrder', upload.none(), order_db_chain, (req, res) => {
+    //can we send the order number with it? can maybe set a previous order number object within the session
     req.session.cart = {};
     req.session.itemNumber = 1;
-    res.redirect(302, '/Checkout/orderConfirmation.html');
+    res.redirect('/Checkout/orderConfirmation.html')
 })
 
-
-
+//export the router for use within the main server file
 module.exports = orders;

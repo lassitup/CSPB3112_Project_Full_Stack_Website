@@ -45,9 +45,15 @@ const displayCart = (cart_data, prices) => {
         newRow.push(document.createElement('td'));
     }
 
-    const removeButton = document.createElement('button');
+    /*const removeButton = document.createElement('button');
     removeButton.addEventListener('click', removeFromCart);
-    newRow.push(removeButton);
+    newRow.push(removeButton);*/
+
+    const buttonDataCell = document.createElement('td');
+    buttonDataCell.innerHTML = "X";
+    buttonDataCell.addEventListener('click', removeFromCart);
+    buttonDataCell.classList.add("removeButton");
+    newRow.push(buttonDataCell);
 
     
     newRow[0].innerHTML = itemNumber;

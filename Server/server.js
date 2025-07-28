@@ -59,18 +59,16 @@ app.use('/cart', cart);
 
 app.use(express.static(path.join(__dirname, '..', 'Webpages')));
 
-/*app.use(express.static(path.join(__dirname, '..', 'Webpages', 'HomePage')));
-app.use(express.static(path.join(__dirname, '..', 'Webpages', 'Bracelets')));
-app.use(express.static(path.join(__dirname, '..', 'Webpages', 'Necklaces')))
-app.use(express.static(path.join(__dirname, '..', 'Webpages', 'Cart')));
-app.use(express.static(path.join(__dirname, '..', 'Webpages', 'Dasboard')));
-app.use(express.static(path.join(__dirname, '..', 'Webpages', 'Checkout')));*/
 
 //request the home page of the website
 app.get('/daisyajewelry.com', (req, res, next) => {
     res.sendFile(path.join(__dirname, '..', 'Webpages', 'index.html'));
 })
 
+//Route to serve the confirmation page the ID of the order just submitted
+app.get('/lastOrderID', (req, res, next) => {
+    res.json(req.session.lastOrderID.toString());
+})
 
 app.listen(3000, () => {
     console.log('Server up and Listening on Port: 3000');

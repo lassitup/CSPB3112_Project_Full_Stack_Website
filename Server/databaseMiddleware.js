@@ -28,8 +28,8 @@ function insertCustomer(req, res, next) {
             $phone: req.body.phone,
             $email: req.body.email.toLowerCase()
     },  function(error) {
+            db.close();
             if(error) {
-                db.close();
                 console.log(error);
                 //next(error);  - create next error handling function
             }
@@ -55,8 +55,8 @@ function insertOrder(req, res, next) {
         $order_date: req.session.orderDate,
         $order_status: 'unfulfilled'
     }, function(error) {
+        db.close();
         if(error) {
-            db.close();
             //need to remove previously added record in customers if there was an error
             console.log(error);
             //next(error);  - create next error handling function
@@ -64,6 +64,7 @@ function insertOrder(req, res, next) {
         else {
             console.log(`Order #${this.lastID} added to the Order table`);
             req.body.orderID = this.lastID;
+            req.session.lastOrderID = this.lastID;
             next();
         }
         }
