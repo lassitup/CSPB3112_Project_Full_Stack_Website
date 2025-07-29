@@ -48,9 +48,9 @@
         </div>
         </nav>
         <!--figure out if there's a way we can reference the previous page in the middle link-->
-        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <nav class="mx-3" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="./index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="/index.html">Home</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Shopping Cart</li>
             </ol>
         </nav>
@@ -58,13 +58,13 @@
      <main>
         <!--Need to fix this so it adapts to screen size - maybe make it so grid collapses and user and expand line items-->
         <div class="container-fluid">
-            <p>Cart Contents</p>
+            <p>Your Current Cart</p>
             <div class="container"></div>
                 <div class="row mx-0">
                     <div class="col table-responsive-sm" id="cartGrid"> 
-                        <table class="mx-auto table table-hover table-striped table-bordered border-dark-subtle" id="cart_table">
+                        <table class=" table-sm mx-auto table table-hover table-striped table-bordered border-dark-subtle" id="cart_table">
                             <thead class="table-light text-center">
-                                <tr>
+                                <tr class="align-middle">
                                     <th>Item #</th>
                                     <th>Product Type</th>
                                     <th>Metal Type</th>
@@ -77,7 +77,7 @@
                                 </tr>
                             </thead>
 
-                            <tbody id="tableBody" class="table-group-divide text-center">
+                            <tbody id="tableBody" class="table-group-divider text-center">
 
 
                             </tbody>
@@ -88,8 +88,8 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td>Total Before Tax and Shipping</td>
-                                    <td id="totalCell"></td>
+                                    <td class="text-end">Total Before Tax and Shipping</td>
+                                    <td class="text-center" id="totalCell"></td>
                                     <td></td>
                                     <td></td>
                                 </tr>

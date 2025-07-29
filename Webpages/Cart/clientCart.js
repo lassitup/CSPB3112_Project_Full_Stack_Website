@@ -77,8 +77,8 @@ const displayCart = (cart_data, prices) => {
   }  
 
 
-
-
+const totalDataCell = document.getElementById('totalCell');
+totalDataCell.innerHTML = `$${totalPrice.toFixed(2)}`;
   
   //send this total to the server and attach to the session
   updateTotal(totalPrice);
