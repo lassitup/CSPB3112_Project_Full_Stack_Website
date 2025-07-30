@@ -57,7 +57,7 @@
             </div>
         </div>
         </nav>
-        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <nav class="mx-3" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/index.html">Home</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Keychains</li>
@@ -96,15 +96,17 @@
                 <div class="col-xl-5 col-xxl-5">
                     <div class="bg-body-tertiary p-3 content-container">
                         <!--Order Form for Bracelets - Order Specific details to be selected here by the customer-->
-                        <h5>Description</h5>
-                        <p>
+                        <h5 class="text-center">Description</h5>
+                        <hr>
+                        <p class="text-center">
                             Hang your memories on your keys, or anywhere else! Within our keychain mold, we can embed flowers, cat fur, or really anything as long as it's small enough to fit the mold! As noted within our <a href="">About page </a>, we first started making bracelets, which were inspired from the passing of our beloved grandmother. Using the flowers from the funeral, we created a wearable memory for the entire family.
                         </p>
+                        <hr>
                         <!--This needs to be based on the price in the product table in db-->
                         <!--could have a base price and then add a premium to the base - use another table to record premium price - something to consider-->
-                        <span id="price"></span><br><br>
+                        <p class="text-center" id="price"></p>
 
-                        <form action="/addKeychain" method="POST" id="form" enctype="multipart/form-data">
+                        <form class="text-center" action="/addKeychain" method="POST" id="form" enctype="multipart/form-data">
 
                             <label for="metalType">Select Metal Type</label>
                             <select name="metalType" id="metalType" required> 

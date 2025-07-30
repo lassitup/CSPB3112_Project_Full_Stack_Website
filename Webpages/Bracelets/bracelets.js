@@ -56,7 +56,7 @@ async function sendData(submissionData) {
 //holds the base price per unit - going to change this to a database query - keep all prices in a table
 //attach the product id from the database query to the form submission - attaches it to the cart
 
-
+//move this to utility module, can be then imported to all product JS files
 async function getUnitPrice() {
   const url = "http://localhost:3000/cart/getBraceletUnitPrice";
   try {
