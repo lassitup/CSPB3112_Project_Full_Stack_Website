@@ -157,4 +157,35 @@ async function display_summary(tax, totalAndTax) {
 }
 
 
+function checkSelection(event) {
+  const states = document.getElementById('states');
+
+  //get current input value
+  const stateValue = document.getElementById('state').value;
+
+  for (let state of states.options) {
+    if(stateValue === state.value) {
+      return;
+    }
+  }
+  //reset back to empty if one of options wasn't entered/selected
+  document.getElementById('state').value = "";
+}
+
+const state = document.getElementById('state');
+
+state.addEventListener('change', checkSelection);
+
+
+
+
+
+
+
+
+
+
+
+
+
 display_summary();

@@ -8,7 +8,7 @@ main {
     text-align: center;
     font-family: Felipa;
     padding-top: 1rem;;
-    font-size: 3.5vw;
+    font-size: clamp(2rem, 3.5vw, 3.5vw); /*clamp used to set min / max value*/
 }
 
 #shopping-cart {
@@ -33,13 +33,15 @@ main {
 }
 
 #pageTitle{
-    font-family: "Delicious Handrawn", cursive;
+    font-family: "Playwrite AU QLD", cursive;
     font-weight: 400;
     font-style: normal;
-    font-size: 2.5rem;
-    background-color: rgb(245, 239, 209);
+    font-size: clamp(1rem, 1.5vw, 1.5vw); /*clamp used to set min / max value*/
+    background-color: rgb(246, 243, 229);
     border: black solid;
+    vertical-align: middle;
 }
+
 
 form, .description {
     font-family: "Pragati Narrow", sans-serif;
