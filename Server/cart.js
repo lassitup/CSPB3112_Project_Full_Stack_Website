@@ -81,9 +81,10 @@ cart.put('/updateTotal', express.text(), (req, res) => {
 })
 
 cart.put('/updateTaxAndPrice', express.json(), (req, res) => {
-    console.log(req.body);
     req.session.tax = req.body.tax;
     req.session.totalWithTax = req.body.total;
+    req.session.shipping = 5;
+    req.session.totalAll = req.body.total + req.session.shipping;
     res.send();
 })
 

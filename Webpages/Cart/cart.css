@@ -6,7 +6,7 @@ main {
     text-align: center;
     font-family: Felipa;
     padding-top: 1rem;;
-    font-size: 4rem;
+    font-size: clamp(2rem, 3.5vw, 3.5vw); /*clamp used to set min / max value*/
 }
 
 #welcome {
@@ -17,6 +17,16 @@ main {
 
 .nav-item {
     margin: 0 50px;
+}
+
+#pageTitle{
+    font-family: "Playwrite AU QLD", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: clamp(1rem, 1.5vw, 1.5vw); /*clamp used to set min / max value*/
+    background-color: #F0FFFF;
+    border: black solid;
+    vertical-align: middle;
 }
 
 .cart {

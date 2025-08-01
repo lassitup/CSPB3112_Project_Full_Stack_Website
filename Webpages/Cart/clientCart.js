@@ -117,7 +117,13 @@ async function populate_cart() {
   const cart_data = await getCart();
   //wait for the db product prices fetch to complete
   const productPrices = await getPrices();
-  console.log(productPrices);
+
+  //check if cart is empty - deactivate continue to checkout
+  if(Object.keys(cart_data) == 0){
+    const button = document.getElementById('toCheckout');
+    button.style.display = "none";
+  }
+
   //then we can begin populating the cart
   displayCart(cart_data, productPrices);
 }
@@ -176,3 +182,5 @@ async function updateTotal(totalPrice) {
 
 //load the cart each time the page is loaded
 populate_cart();
+
+

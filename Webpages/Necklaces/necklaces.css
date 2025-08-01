@@ -13,7 +13,7 @@ main {
 
 #shopping-cart {
     position: absolute;
-    top: 2rem;
+    top: 1rem;
     right: 2rem;
     z-index: 1;
     width: 5%;
@@ -47,7 +47,7 @@ form, .description {
     font-family: "Pragati Narrow", sans-serif;
     font-weight: 400;
     font-style: normal;
-    font-size: 1.25rem;
+    font-size: 1.5rem;
 }
 
 #price {

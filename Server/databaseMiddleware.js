@@ -28,14 +28,15 @@ function insertCustomer(req, res, next) {
             $phone: req.body.phone,
             $email: req.body.email.toLowerCase()
     },  function(error) {
-            db.close();
             if(error) {
                 console.log(error);
+                db.close();
                 //next(error);  - create next error handling function
             }
             else {
                 console.log(`Customer #${this.lastID} added to the Customer table`);
                 req.body.customerNum = this.lastID;
+                db.close();
                 next();
             }
         }
@@ -47,16 +48,20 @@ function insertOrder(req, res, next) {
 
     const db = new sqlite3.Database('../Database/daisyajewelry.db');
 
-    db.run('INSERT INTO Orders (CUSTOMER_ID, TOTAL_PRICE, SALES_TAX, TOTAL_PRICE_TAX, ORDER_DATE, ORDER_STATUS) VALUES ($customer_id, $total_price, $sales_tax, $total_price_tax, $order_date, $order_status)', {
+    db.run('INSERT INTO Orders (CUSTOMER_ID, TOTAL_PRICE, SALES_TAX, TOTAL_PRICE_TAX, ORDER_DATE, ORDER_STATUS, SHIPPING, TOTAL_ALL) VALUES ($customer_id, $total_price, $sales_tax, $total_price_tax, $order_date, $order_status, $shipping, $totalAll)', {
         $customer_id: req.body.customerNum,
         $total_price: req.session.totalPrice,
         $sales_tax: req.session.tax,
         $total_price_tax: req.session.totalWithTax,
         $order_date: req.session.orderDate,
-        $order_status: 'unfulfilled'
+        $order_status: 'unfulfilled',
+        $shipping: req.session.shipping,
+        $totalAll: req.session.totalAll
+
     }, function(error) {
-        db.close();
+
         if(error) {
+            db.close();
             //need to remove previously added record in customers if there was an error
             console.log(error);
             //next(error);  - create next error handling function
@@ -65,6 +70,7 @@ function insertOrder(req, res, next) {
             console.log(`Order #${this.lastID} added to the Order table`);
             req.body.orderID = this.lastID;
             req.session.lastOrderID = this.lastID;
+            db.close();
             next();
         }
         }
@@ -86,18 +92,19 @@ function insertProductSold(req, res, next) {
         }, function(error) {
 
             if(error) {
+                db.close();
                 //need to remove previously added record in customers and orders if there was an error
                 res.status(500).send();
                 return;
             }
             else {
                 console.log(`Product Sold ID #${this.lastID} added to the Products Sold table`);
+                db.close();
                 next();
             }
         }
         )
     } 
-    db.close();
 }
 
 

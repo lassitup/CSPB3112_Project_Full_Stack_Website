@@ -1,5 +1,7 @@
-
 //Form Submission logic contained here - data will be sent to the server and held until final order is complete//
+
+//database call instead - add column to product table for shippig cost per product type
+const shippingCost = 5.00;
 
 const formParent = document.getElementById('form');
 
@@ -68,6 +70,7 @@ async function calculateTax(totalPrice, zip) {
     const response = await fetch(url, submissionData);
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
+      //create an alert popup if invalid zip code
     }
     return await response.json();
   } catch (error) {
@@ -81,8 +84,9 @@ async function calculateTax(totalPrice, zip) {
 async function calculateTotal() {
 
   const price = await getTotalPrice();
-  console.log(price);  const tax = await calculateTax(price, 47546);
-  const total = price + tax[0].state_tax;
+  const zip = document.getElementById('zip').value;
+  const tax = await calculateTax(price + shippingCost, zip);
+  const total = price + shippingCost + tax[0].state_tax;
 
   //add the tax and new total to the DOM
   display_summary(tax[0].state_tax, total);
@@ -134,25 +138,28 @@ async function sendPriceData(tax, total) {
 
  //display total price
   
+ //need to remove cell data if the zip is remove/changed
+ //maybe instead of creating the element via JS, initialize within the html / set to 0 and update
 async function display_summary(tax, totalAndTax) {
-  //if the argumentsare empty, just populate the initial total
+
+  //if the arguments are empty, just populate the initial total
   if(tax === undefined){
     const initialPrice = document.getElementById('initialPrice');
     const priceCell = document.createElement('td');
-    priceCell.innerHTML = await getTotalPrice();
+    const totalPrice = await getTotalPrice();
+    priceCell.innerHTML = `$${totalPrice.toFixed(2)}`;
     initialPrice.insertAdjacentElement('afterend', priceCell);
+
+    const shipping = document.getElementById('shipping');
+    shipping.innerHTML = `$${shippingCost.toFixed(2)}`;
   }
   else {
     //otherwise, the initial amount is already populated so just populated the tax and new total
     const salesTax = document.getElementById('salesTax');
-    const taxCell = document.createElement('td');
-    taxCell.innerHTML = tax;
-    salesTax.insertAdjacentElement('afterend', taxCell);
+    salesTax.innerHTML = `$${tax.toFixed(2)}`;
 
     const totalPrice = document.getElementById('totalPrice');
-    const totalCell = document.createElement('td');
-    totalCell.innerHTML = totalAndTax;
-    totalPrice.insertAdjacentElement('afterend', totalCell);
+    totalPrice.innerHTML = `$${totalAndTax.toFixed(2)}`;
   }
 }
 
@@ -175,16 +182,6 @@ function checkSelection(event) {
 const state = document.getElementById('state');
 
 state.addEventListener('change', checkSelection);
-
-
-
-
-
-
-
-
-
-
 
 
 

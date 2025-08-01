@@ -14,6 +14,14 @@
         <div class="container-fluid">
             <h1 class="h1" id="name">Daisy A. Jewelry</h1>
         </div>
+
+        <!--Shopping Cart Icon-->
+        <a href="/Cart/cart.html">
+            <svg xmlns="http://www.w3.org/2000/svg"  fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16" id="shopping-cart"> 
+            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+            </svg>
+        </a>
+
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,7 +46,7 @@
                     </a>
                     <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="/Bracelets/bracelets.html">Bracelets</a></li>
-                    <li><a class="dropdown-item" href="#">Keychains</a></li>
+                    <li><a class="dropdown-item" href="/Keychains/keychains.html">Keychains</a></li>
                     <li><a class="dropdown-item" href="/Necklaces/necklaces.html">Necklaces</a></li>
 
                     </ul>
@@ -58,12 +66,12 @@
     </header>
      <main>
         <div class="container-fluid">
-            <div class="row text-center">
-                <p>Complete your Order!</p>
+            <div class="row text-center p-1 mb-3" id="pageTitle">
+                <p class="mb-1">Complete your Order!</p>
             </div>
             <form action="/orders" method="POST" id="form" enctype="multipart/form-data">
-                <div class="row justify-content-center align-items-center">
-                    <div class="col-5 d-inline-block text-center" >
+                <div class="row g-3 justify-content-center align-items-center">
+                    <div class="col-md-5 d-inline-block text-center" >
                         <!--Add validation for each field where appropriate-->
                         <!--Use hidden input field to submit date ordered?-->
                         <h5>Personal and Contact Information</h4>
@@ -80,7 +88,7 @@
                         
                             
                     </div>
-                    <div class="col-5 d-inline-block text-center">
+                    <div class="col-md-5 d-inline-block text-center">
                         <h5>Shipping Information</h5>
                         <hr>
                         <input type="text" id="address1" name="address_1" placeholder="Address" size="40" required><br>
@@ -154,11 +162,26 @@
                 </div>    
                 <div class="row justify-content-center">
                     <div class="col d-inline-block text-center" >
-                        <table class="mx-auto" id="checkout_table">
+                        <table class=" table mx-auto w-25 border border-dark" id="checkout_table">
                             <tbody id="tableBody">
-                                <tr><th scope="row" id="initialPrice">Total Price Before Tax and Shipping</th></tr>
-                                <tr><th scope="row" id="salesTax">Sales Tax</th></tr>
-                                <tr><th scope="row" id="totalPrice">Total Price</th></tr> 
+                                <tr>
+                                    <th scope="row" colspan="2" class="bg-light">Summary</th>
+                                </tr>
+                                <tr>
+                                    <th scope="row" id="initialPrice">Total Price Before Tax and Shipping</th>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Sales Tax</th>
+                                    <td id="salesTax">$0.00</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Shipping</th>
+                                    <td id="shipping"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" >Total Price</th>
+                                    <td id="totalPrice">$0.00</td>
+                                </tr> 
 
                             </tbody>
                         </table>
@@ -166,7 +189,7 @@
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-4 d-inline-block text-center" id="purchaseSummary">
-                        <button id="submitButton" class="btn btn-secondary"  type="submit" disabled>Submit Order</button>
+                        <button id="submitButton" class="btn btn-secondary mb-3"  type="submit" disabled>Submit Order</button>
                     </div>
                 </div>
             </form>
@@ -177,7 +200,7 @@
     <footer class="p-3 bg-body-tertiary mt-auto" id="footer">
         <div class="container-fluid">
             <div class="row">
-            <div class="col text-center">Daisy A Jewelry</div>
+            <div class="col text-center">Daisy A Jewelry - A Chelsea Lassiter Production</div>
             </div> 
         </div>
     </footer>

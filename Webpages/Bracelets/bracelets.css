@@ -1,23 +1,23 @@
 main {
     background-color: #d5d0cf;
-    min-height: 70vh;
-
+    min-height: 78vh;
 }
 
 #name {
     text-align: center;
     font-family: Felipa;
     padding-top: 1rem;;
-    font-size: 4rem;
+    font-size: clamp(2rem, 3.5vw, 3.5vw); /*clamp used to set min / max value*/
 }
 
 #shopping-cart {
     position: absolute;
-    top: 2rem;
+    top: 1rem;
     right: 2rem;
     z-index: 1;
     width: 5%;
     height: 5%;
+    color: black;
 }
 
 
@@ -30,6 +30,25 @@ main {
 .nav-item {
     margin: 0 50px;
 }
+
+#pageTitle{
+    font-family: "Playwrite AU QLD", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: clamp(1rem, 1.5vw, 1.5vw); /*clamp used to set min / max value*/
+    background-color: rgb(246, 243, 229);
+    border: black solid;
+    vertical-align: middle;
+}
+
+
+form, .description {
+    font-family: "Pragati Narrow", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.5rem;
+}
+
 
 #price {
     font-weight: bold;

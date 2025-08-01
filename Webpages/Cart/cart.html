@@ -38,7 +38,7 @@
                     </a>
                     <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="/bracelets/bracelets.html">Bracelets</a></li>
-                    <li><a class="dropdown-item" href="#">Keychains</a></li>
+                    <li><a class="dropdown-item" href="/Keychains/keychains.html">Keychains</a></li>
                     <li><a class="dropdown-item" href="/Necklaces/necklaces.html">Necklaces</a></li>
 
                     </ul>
@@ -56,14 +56,18 @@
         </nav>
     </header>
      <main>
+        <div class="container-fluid">
+            <div class="row text-center p-1 mb-3" id="pageTitle">
+                <p class="mb-1">Cart</p>
+            </div>
+        </div>
         <!--Need to fix this so it adapts to screen size - maybe make it so grid collapses and user and expand line items-->
         <!--Maybe add image to a datacell at beginning of line item-->
         <div class="container-fluid">
-            <p class="text-center cart">Cart</p>
             <div class="container"></div>
                 <div class="row mx-0">
-                    <div class="col table-responsive-sm" id="cartGrid"> 
-                        <table class=" table-sm mx-auto table table-hover table-striped table-bordered border-dark-subtle" id="cart_table">
+                    <div class="col table-responsive-sm text-center" id="cartGrid"> 
+                        <table class=" table-sm mx-auto table table-hover table-striped table-bordered border-dark-subtle text-center" id="cart_table">
                             <thead class="table-light text-center">
                                 <tr class="align-middle">
                                     <th>Item #</th>
@@ -96,7 +100,7 @@
                                 </tr>
                             </tfoot>
                         </table>
-                        <a href="/Checkout/checkout.html"><button id="toCheckout">Continue to Checkout</button></a>
+                        <a class="btn btn-secondary" href="/Checkout/checkout.html" id="toCheckout">Continue to Checkout</a>
                     </div>
             </div>
         </div>
@@ -105,7 +109,7 @@
     <footer class="p-3 bg-body-tertiary mt-auto" id="footer">
         <div class="container-fluid">
             <div class="row">
-            <div class="col text-center">Daisy A Jewelry</div>
+            <div class="col text-center">Daisy A Jewelry - A Chelsea Lassiter Production</div>
             </div> 
         </div>
     </footer>
