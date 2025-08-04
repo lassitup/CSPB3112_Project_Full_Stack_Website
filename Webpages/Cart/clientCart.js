@@ -1,6 +1,6 @@
-
 //JavaScript to handle interactions with the Cart page
 
+//function finds and returns the price for the product type passed as an argument
 const findPriceIndex = (prices, productType) => {
     for (const product of prices) {
       console.log(product.PRODUCT_DESCRIPTION);
@@ -10,7 +10,7 @@ const findPriceIndex = (prices, productType) => {
     }
 } 
 
-
+//Function manipulates the DOM to present all items currently within the session cart
 const displayCart = (cart_data, prices) => {
 
   //To keep track of and display the number of items in the cart
@@ -84,7 +84,7 @@ totalDataCell.innerHTML = `$${totalPrice.toFixed(2)}`;
   updateTotal(totalPrice);
 }
 
-//query the prices for the units here from the database
+//Function returns all products with prices from the database
 async function getPrices() {
   const url = "http://localhost:3000/Cart/getProducts";
   try {
@@ -99,6 +99,7 @@ async function getPrices() {
   }
 }
 
+//Function returns all items currently in the session cart
 async function getCart() {
   const url = "http://localhost:3000/Cart/getCart";
   try {
@@ -128,7 +129,7 @@ async function populate_cart() {
   displayCart(cart_data, productPrices);
 }
 
-//Function to request an item be removed from the cart/session
+//Function to request an item be removed from the session cart
 async function removeFromCart(event) {//used id of event target to identify the correct row for deletion?
   
   const url = "http://localhost:3000/Cart/removeFromCart";
@@ -153,8 +154,6 @@ async function removeFromCart(event) {//used id of event target to identify the 
     console.error(error.message);
   }
 }
-
-
 
 
 async function updateTotal(totalPrice) {

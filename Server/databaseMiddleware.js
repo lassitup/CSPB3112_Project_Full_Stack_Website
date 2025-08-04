@@ -54,7 +54,7 @@ function insertOrder(req, res, next) {
         $sales_tax: req.session.tax,
         $total_price_tax: req.session.totalWithTax,
         $order_date: req.session.orderDate,
-        $order_status: 'unfulfilled',
+        $order_status: 'open',
         $shipping: req.session.shipping,
         $totalAll: req.session.totalAll
 
@@ -150,4 +150,44 @@ function getUnitPrice(productID) {
 }
 
 
-module.exports = {insertCustomer, insertOrder, insertProductSold, getAllProducts, getUnitPrice};
+//Query database based on parameters provided attached to req as query string
+function getOrders(req, res, next) {
+
+    const db = new sqlite3.Database('../Database/daisyajewelry.db');
+
+    if(req.query.content === "all"){ 
+        db.all('SELECT * FROM Orders', (err, rows) =>
+        {
+            db.close();
+            if(err){
+                //need to detemrine how to handle the error - set error code
+                res.status(500).send()
+                //next(error);  - create next error handling function
+            } else {
+                res.json(rows);
+            }
+        })
+    }
+    else if(req.query.content === "open") [
+        db.all("SELECT * FROM Orders WHERE ORDER_STATUS='open'", (err, rows) =>
+        {
+            db.close();
+            if(err){
+                //need to detemrine how to handle the error - set error code
+                res.status(500).send()
+                //next(error);  - create next error handling function
+            } else {
+                res.json(rows);
+            }
+        })
+    ]
+
+
+    //need to close database connection once done
+}
+
+
+
+
+
+module.exports = {insertCustomer, insertOrder, insertProductSold, getAllProducts, getUnitPrice, getOrders};

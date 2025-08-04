@@ -3,8 +3,11 @@ const multer = require('multer');
 const sqlite3 = require('sqlite3')
 const path = require('path');
 const session = require('express-session');
+
+//Import Routers
 const orders = require('./orders.js');
 const cart = require('./cart.js');
+const dbManage = require('./dbManage.js');
 
 //To handle sessions, need pckages:
 //express-session
@@ -12,7 +15,7 @@ const cart = require('./cart.js');
 //Continue using multer for handling form inputs - express can handle this natively, but we might
 //want to add the ability to upload a file later, which needs multer
 
-//Establish Express Server
+//Initiate Express Server
 const app = express();
 
 //Note: MemoryStore should not be used in production
@@ -51,6 +54,7 @@ app.use((req, res, next) => {
 //Mount the Routers
 app.use('/orders', orders);
 app.use('/cart', cart);
+app.use('/dbManage', dbManage);
 
  
 //directs the server to pull static pages like other html/css/images from the appropriate directory

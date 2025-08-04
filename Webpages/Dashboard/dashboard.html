@@ -24,7 +24,7 @@
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="./index.html">Home</a>
+                <a class="nav-link active" aria-current="page" href="/index.html">Home</a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link" href="#">Contact</a>
@@ -54,32 +54,64 @@
             </ol>
         </nav>
     </header>
-     <main>
-        <!--Dashboard Display-->
+    <main>
+        <div class="container-fluid">
+            <div class="row text-center">
+                <div class="col">
+                    <p>Site Owner Dashboard</p>
+                </div>
+            </div>
+        </div>
+
+        <!--Dashboard User Selections-->
         <div class="container"></div>
-            <div class="row justify-content-center" style="margin:0;">
-                <div class="col" id="orderGrid"> 
-                    <table class="mx-auto" id="dashboard_table">
+            <div class="row mb-5 text-center"> 
+                <div class="col">
+                    <div class="mb-3">                      
+                        <button class="btn btn-secondary" id="allOrders" type="submit" value="all">Show All Orders</button>
+                        <button class="btn btn-secondary"  id="openOrders" type="submit" value="open">Show Open Orders</button><br>
+                    </div>  
+                
+                    <div>
+                        <label for="searchOrderID">Search by Order ID</label>
+                        <input id="searchOrderID" type="text"/>
+                        <button class="btn btn-secondary" type="submit" id="searchOrderButton">Submit</button>
+
+                        <label for="searchCustomerID">Search by Customer ID</label>    
+                        <input id="searchCustomerID" type="text"/>
+                        <button class="btn btn-secondary" type="submit" id="searchCustomerButton">Submit</button>
+                    </div>
+                </div>
+            </div> 
+            
+            <!--Dashboard Display-->
+            <div class="row"> 
+                <div class="col">  
+                    <table class="table mx-auto text-center" id="dashboard_table">                   
                         <thead>
-                            <tr>
-                                <th>Order Number</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>address1</th>
-                                <th>address2</th>
-                                <th>City</th>
-                                <th>State</th>
-                                <th>Zip</th>
-                            </tr>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer ID</th>
+                            <!--Add hidden subtable here - add event listener to expand to a subtable once the element is clicked-->
+                            <th>Order Details</th> <!--make this a button that expands into a subtable - can we add a +/- to the button descript?-->
+                            <th>Order Date</th>
+                            <th>Order Status</th>
+                            <th>Ship Date</th>
+                            <th>Order Notes</th>
+                            <th>Order Amount Pre Tax and Shipping</th>
+                            <th>Shipping</th>
+                            <th>Tax</th>
+                            <th>Total Order Amount</th>
+                        </tr>
                         </thead>
                         <tbody id="tableBody">
 
 
                         </tbody>
                     </table>
-                    <button id="openOrders">Show Open Orders</button>
-                </div>
-            </div>
+                </div>  
+            </div>      
+        </div>
     </main>
 
     <footer class="p-3 bg-body-tertiary mt-auto" id="footer">
@@ -90,6 +122,6 @@
         </div>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
-    <script src="./dashboard.js"></script>
+    <script src="/Dashboard/dashboard.js"></script>
 </body>
 </html>

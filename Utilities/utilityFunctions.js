@@ -19,9 +19,9 @@ const getFormInputs = (event) => {
 };
 
 
-//holds the base price per unit - going to change this to a database query - keep all prices in a table
-//attach the product id from the database query to the form submission - attaches it to the cart
-//call with the route path for the specific product type
+
+//Function to retrieve the base price of the selected unit
+//Call with the route path for the specific product type
 async function getUnitPrice(path) {
   const url = `http://localhost:3000/cart/${path}`;
   try {
@@ -36,6 +36,7 @@ async function getUnitPrice(path) {
   }
 }
 
+//Function to add items to the session cart
 async function addToCart(path, submissionData) {
   const url = `http://localhost:3000/cart/${path}`;
   try {

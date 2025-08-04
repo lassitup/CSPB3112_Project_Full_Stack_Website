@@ -24,6 +24,7 @@ const order_db_chain = [dbMiddleware.insertCustomer, dbMiddleware.insertOrder, d
 //reset the user cart in the session once orders are successfully recorded
 orders.post('/submitOrder', upload.none(), order_db_chain, (req, res) => {
     //can we send the order number with it? can maybe set a previous order number object within the session
+    //Once the order is recorded to the database, reset the session cart and item numbers in the cart
     req.session.cart = {};
     req.session.itemNumber = 1;
     res.redirect('/Checkout/orderConfirmation.html')

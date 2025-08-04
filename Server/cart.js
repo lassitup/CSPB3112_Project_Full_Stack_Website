@@ -17,13 +17,10 @@ cart.use((req, res, next) => {
     next();
 })
 
-/*//create and add and remove item functions to avoid repitition
-cart.get('/', (req, res) => {
-    res.json('We did it!');
-});*/
 
 //add function that updates total price after something is added and removed
 //upload.none - multer method to parse form data and attached to body
+//add Bracelet product to the session cart
 cart.post('/addBracelet', upload.none(), (req, res) => {
     req.body.productType = 'Bracelet';
     req.session.cart[req.session.itemNumber] = req.body;
@@ -31,6 +28,7 @@ cart.post('/addBracelet', upload.none(), (req, res) => {
     res.send();
 });
 
+//add Necklace product to the session cart
 cart.post('/addNecklace', upload.none(), (req, res) => {
     req.body.productType = 'Necklace';
     req.session.cart[req.session.itemNumber] = req.body;
