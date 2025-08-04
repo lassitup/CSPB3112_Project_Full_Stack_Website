@@ -132,30 +132,29 @@ function getAllProducts(req, res, next) {
 function getUnitPrice(productID) {
     //returns a middleware function, but it has access to the input parameter in the parent function
     return function (req, res, next) {
-    const db = new sqlite3.Database('../Database/daisyajewelry.db');
-     
-    db.get('SELECT * FROM Products WHERE PRODUCT_ID = $id', {
-        $id: productID
-    }, (err, row) => {
-        db.close();
-        if(err){
-            //need to detemrine how to handle the error - set error code
-            res.status(500).send()
-            //next(error);  - create next error handling function
-        } else {
-            res.json(row);
-        }
-    });
+        const db = new sqlite3.Database('../Database/daisyajewelry.db');
+        
+        db.get('SELECT * FROM Products WHERE PRODUCT_ID = $id', {
+            $id: productID
+        }, (err, row) => {
+            db.close();
+            if(err){
+                //need to detemrine how to handle the error - set error code
+                res.status(500).send()
+                //next(error);  - create next error handling function
+            } else {
+                res.json(row);
+            }
+        });
     }
 }
-
-
 //Query database based on parameters provided attached to req as query string
 function getOrders(req, res, next) {
 
     const db = new sqlite3.Database('../Database/daisyajewelry.db');
 
-    if(req.query.content === "all"){ 
+    if(req.query.type === "all"){ 
+        
         db.all('SELECT * FROM Orders', (err, rows) =>
         {
             db.close();
@@ -168,7 +167,7 @@ function getOrders(req, res, next) {
             }
         })
     }
-    else if(req.query.content === "open") [
+    else if(req.query.type === "open") {
         db.all("SELECT * FROM Orders WHERE ORDER_STATUS='open'", (err, rows) =>
         {
             db.close();
@@ -180,14 +179,72 @@ function getOrders(req, res, next) {
                 res.json(rows);
             }
         })
-    ]
+    }
+    else if(req.query.type === "orderID"){
+        const container = {};
+
+        db.get(`SELECT * FROM Orders WHERE ORDER_ID=${req.query.id}`, (err, row) =>
+        {
+            db.close();
+
+            
+            if(err){
+                //need to detemrine how to handle the error - set error code
+                res.status(500).send()
+                //next(error);  - create next error handling function
+            } else {
+                //place result as a nested object to be consistent with format of other queries
+                container[req.query.id] = row;
+                res.json(container);
+            }
+        })
+    }
+    else if(req.query.type === "customerID"){
+        const container = {};
+
+        db.get(`SELECT * FROM Orders WHERE CUSTOMER_ID=${req.query.id}`, (err, row) =>
+        {
+            db.close();
+
+            
+            if(err){
+                //need to detemrine how to handle the error - set error code
+                res.status(500).send()
+                //next(error);  - create next error handling function
+            } else {
+                //place result as a nested object to be consistent with format of other queries
+                container[req.query.id] = row;
+                res.json(container);
+            }
+        })
 
 
+
+
+
+    }
     //need to close database connection once done
+}
+
+function getCustomer(req, res, next) {
+        
+const db = new sqlite3.Database('../Database/daisyajewelry.db');
+    
+    db.get('SELECT * FROM CUSTOMERS WHERE CUSTOMER_ID = $id', {
+        $id: req.query.customerID
+    }, (err, row) => {
+        db.close();
+        if(err){
+            //need to detemrine how to handle the error - set error code
+            res.status(500).send()
+            //next(error);  - create next error handling function
+        } else {
+            res.json(row);
+        }
+    });
 }
 
 
 
 
-
-module.exports = {insertCustomer, insertOrder, insertProductSold, getAllProducts, getUnitPrice, getOrders};
+module.exports = {insertCustomer, insertOrder, insertProductSold, getAllProducts, getUnitPrice, getOrders, getCustomer};

@@ -26,5 +26,9 @@ dbManage.get('/getOrders', dbMiddleware.getOrders, (req, res) => {
     //can we send the order number with it? can maybe set a previous order number object within the session
 })
 
+
+dbManage.get('/getCustomer', dbMiddleware.getCustomer, (req, res) => {
+})
+
 //export the router for use within the main server file
 module.exports = dbManage;
