@@ -27,7 +27,7 @@ dbManage.get('/getOrders', dbMiddleware.getOrders, (req, res) => {
 })
 
 
-dbManage.get('/getCustomer', dbMiddleware.getCustomer, (req, res) => {
+dbManage.get('/getOrderDetails', dbMiddleware.getOrderDetails, (req, res) => {
 })
 
 //export the router for use within the main server file

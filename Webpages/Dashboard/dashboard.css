@@ -40,8 +40,14 @@ th {
     border: 2px solid black;
 }
 
+
 td {
     border: solid 2px black;
+}
+
+
+#tableBody td.expandButton:hover {
+    cursor: pointer;
 }
 
 #footer {

@@ -60,7 +60,6 @@ function populateDashboard(orders) {
     const tableBody = document.getElementById('tableBody');
     //This will remove all child elements and handles cleaning up event listeners within
     tableBody.innerHTML = "";
-    //console.log(orders);
 
     for(let order in orders){
         const newRow = document.createElement('tr');
@@ -73,9 +72,13 @@ function populateDashboard(orders) {
         console.log(orders[order]);
         tdArray[0].innerHTML = orders[order].ORDER_ID;
         tdArray[1].innerHTML = `${orders[order].CUSTOMER_ID} +/-`;
+        
         //add button here that triggers query and display of sub table within order details / line items
         tdArray[2].innerHTML = '+ / -';
-        
+        tdArray[2].classList.add('expandButton');
+        tdArray[2].addEventListener('click', showOrderDetails);
+
+
         tdArray[3].innerHTML = orders[order].ORDER_DATE;
         tdArray[4].innerHTML = orders[order].ORDER_STATUS;
         tdArray[5].innerHTML = orders[order].SHIP_DATE;
@@ -92,28 +95,13 @@ function populateDashboard(orders) {
         tableBody.appendChild(newRow);
     }
 
-    //create a new empty row
-    //loop through the returned objects
-    //add each component as a cell to the row
-    //once all added, add the row as a child to the table body
-
 }
 
-async function getCustomer(event) {
+async function getOrderDetails(orderID) {
 
-    //By default, button element has a value of an empty string
-    //Test if the button has a value, if not go to the previous element and get the value from the input
-    let queryString;
-    if(event.target.value === ""){
 
-        const inputElement = event.target.previousElementSibling;
-        queryString = inputElement.value;
-        
-    } else {
-        queryString = event.target.value;
-    }
     //build request based on the scope of data needed
-    const url = `http://localhost:3000/dbManage/getCustomer?customerID=${queryString}`;
+    const url = `http://localhost:3000/dbManage/getOrderDetails?orderID=${orderID}`;
 
     try {
         const response = await fetch(url);
@@ -121,11 +109,26 @@ async function getCustomer(event) {
         throw new Error(`Response status: ${response.status}`);
         }
         const rows = await response.json();
-        populateDashboard(rows);
+        return rows;
     } catch (error) {
         console.error(error.message);
     }
 }
+
+
+async function showOrderDetails(event) {
+
+    let orderID = event.target.previousElementSibling.previousElementSibling.innerHTML;
+    console.log(orderID);
+    //get all order details related to the order number value in the data cell
+    const orderDetails = await getOrderDetails(orderID);
+    console.log(orderDetails);
+    
+}
+
+
+
+
 
 
 

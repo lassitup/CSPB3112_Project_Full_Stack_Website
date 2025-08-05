@@ -244,7 +244,23 @@ const db = new sqlite3.Database('../Database/daisyajewelry.db');
     });
 }
 
+function getOrderDetails(req, res, next) {
+    console.log(req.query.orderID);
+    const db = new sqlite3.Database('../Database/daisyajewelry.db');
+
+    db.all(`SELECT * FROM Products_Sold WHERE ORDER_ID=${req.query.orderID}`, (err, rows) =>
+    {
+        db.close();
+        if(err){
+            //need to detemrine how to handle the error - set error code
+            res.status(500).send()
+            //next(error);  - create next error handling function
+        } else {
+            res.json(rows);
+        }
+    })
+    
+}
 
 
-
-module.exports = {insertCustomer, insertOrder, insertProductSold, getAllProducts, getUnitPrice, getOrders, getCustomer};
+module.exports = {insertCustomer, insertOrder, insertProductSold, getAllProducts, getUnitPrice, getOrders, getCustomer, getOrderDetails};
