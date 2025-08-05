@@ -20,12 +20,15 @@ dbManage.use((req, res, next) => {
 const order_db_chain = [dbMiddleware.insertCustomer, dbMiddleware.insertOrder, dbMiddleware.insertProductSold]
 
 
+//where is this being called??
+dbManage.get('/getCustomer', dbMiddleware.getCustomer, (req, res) => {
+})
+
 //execute the submission of order data to the database
 //reset the user cart in the session once orders are successfully recorded
 dbManage.get('/getOrders', dbMiddleware.getOrders, (req, res) => {
     //can we send the order number with it? can maybe set a previous order number object within the session
 })
-
 
 dbManage.get('/getOrderDetails', dbMiddleware.getOrderDetails, (req, res) => {
 })

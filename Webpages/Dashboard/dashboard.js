@@ -118,12 +118,94 @@ async function getOrderDetails(orderID) {
 
 async function showOrderDetails(event) {
 
-    let orderID = event.target.previousElementSibling.previousElementSibling.innerHTML;
-    console.log(orderID);
-    //get all order details related to the order number value in the data cell
-    const orderDetails = await getOrderDetails(orderID);
-    console.log(orderDetails);
+    //get the parent row of order idand then add a new sibing after limit the width of the new row so it doesn't overlap/blend with the parent table
+    const parentRow = event.target.parentElement;
+
+    if(parentRow.nextElementSibling.className == "subTableRow"){
+            parentRow.nextElementSibling.remove();
+    }else {
+
+        const orderID = event.target.previousElementSibling.previousElementSibling.innerHTML;
+        //get all order details related to the order number value in the data cell
+        const orderDetails = await getOrderDetails(orderID);
+
+
+
+
+        const newTable = document.createElement('table');
+        newTable.classList.add('table')
+        newTable.classList.add('subtable')
+        const newTableHead = document.createElement('thead');
+        newTable.appendChild(newTableHead);
+        const headRow = document.createElement('tr');
+        newTableHead.appendChild(headRow);
+        const tableBody = document.createElement('tbody');
+        newTable.appendChild(tableBody);
+
+        //create header cells
+        const thArray = [];
+
+        for(let i = 0; i < 6; i++){
+            const th = document.createElement('th');
+            thArray.push(th);
+        }
+        thArray[0].innerHTML = "Product";
+        thArray[1].innerHTML = "Order Quantity";
+        thArray[2].innerHTML = "Metal Type";
+        thArray[3].innerHTML = "Size";
+        thArray[4].innerHTML = "Extended Price";
+        thArray[5].innerHTML = "Order Notes";
+
+        for(const th of thArray){
+            headRow.appendChild(th);
     
+        }
+
+        console.log(orderDetails);
+
+        for (let line of orderDetails){
+            console.log(line);
+            const newTR = document.createElement('tr');
+            const detailArray = [];
+
+            //create data cells
+            for(let i = 0; i < 6; i++){
+                const newTD = document.createElement('td');
+                detailArray.push(newTD);
+            }
+            detailArray[0].innerHTML = line.PRODUCT_DESCRIPTION;
+            detailArray[1].innerHTML = line.QUANTITY;
+            detailArray[2].innerHTML = line.METAL_TYPE;
+            detailArray[3].innerHTML = line.SIZE;
+            detailArray[4].innerHTML = line.EXTENDED_PRICE;
+            detailArray[5].innerHTML = line.ORDER_NOTES;
+
+            console.log(detailArray);
+            for(const td of detailArray){
+                newTR.appendChild(td);
+            }
+
+            tableBody.appendChild(newTR);
+    
+        }
+
+        const tableRow = document.createElement('tr');
+        const td = document.createElement('td');
+        td.appendChild(newTable);
+        td.colSpan = "11";
+        tableRow.appendChild(td);
+        tableRow.className = "subTableRow";
+
+
+
+        parentRow.insertAdjacentElement('afterend', tableRow);
+
+    }
+    //product description
+    //quanitity
+    //metal type
+    //size
+    //extended price
 }
 
 

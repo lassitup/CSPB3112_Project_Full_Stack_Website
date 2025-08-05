@@ -21,6 +21,15 @@ main {
     margin: 0 50px;
 }
 
+#pageTitle{
+    font-family: "Playwrite AU QLD", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: clamp(1rem, 1.5vw, 1.5vw); /*clamp used to set min / max value*/
+    background-color: #F0FFFF;
+    border: black solid;
+    vertical-align: middle;
+}
 
 #orderGrid {
     text-align: center;
@@ -45,6 +54,11 @@ td {
     border: solid 2px black;
 }
 
+
+#tableBody table.subtable{
+    margin: 20px 0;
+    background-color: aquamarine;
+}
 
 #tableBody td.expandButton:hover {
     cursor: pointer;

@@ -81,30 +81,41 @@ function insertProductSold(req, res, next) {
 
     const db = new sqlite3.Database('../Database/daisyajewelry.db');
     
+    //using a counter to ensure that the database does not get closed prematurely due to possible race conditions
+    const totalProducts = Object.keys(req.session.cart).length;
+    let completedWrites = 0;
+
     for(const product in req.session.cart) {
-        db.run('INSERT INTO Products_Sold (ORDER_ID, PRODUCT_ID, QUANTITY, METAL_TYPE, SIZE, EXTENDED_PRICE) VALUES ($order_id, $product_id, $quantity, $metal_type, $size, $extended_price)', {
+        db.run('INSERT INTO Products_Sold (ORDER_ID, PRODUCT_ID, QUANTITY, METAL_TYPE, SIZE, EXTENDED_PRICE, PRODUCT_DESCRIPTION, ORDER_NOTES) VALUES ($order_id, $product_id, $quantity, $metal_type, $size, $extended_price, $description, $orderNotes)', {
             $order_id: req.body.orderID,
             $product_id: req.session.cart[product].product_id,
             $quantity: req.session.cart[product].quantity,
             $metal_type: req.session.cart[product].metalType.toLowerCase(),
             $size: req.session.cart[product].size,
             $extended_price: req.session.cart[product].extendedPrice,
+            $description: req.session.cart[product].productType,
+            $orderNotes: req.session.cart[product].orderNotes
         }, function(error) {
-
+            completedWrites++;
             if(error) {
-                db.close();
+
                 //need to remove previously added record in customers and orders if there was an error
+                console.log("Error in Writing to Product Table:", error);
+                db.close();
                 res.status(500).send();
                 return;
             }
             else {
                 console.log(`Product Sold ID #${this.lastID} added to the Products Sold table`);
+            }
+            if(completedWrites === totalProducts){
                 db.close();
                 next();
             }
         }
         )
     } 
+
 }
 
 
