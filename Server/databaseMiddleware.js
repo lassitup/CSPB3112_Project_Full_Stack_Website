@@ -256,7 +256,7 @@ const db = new sqlite3.Database('../Database/daisyajewelry.db');
 }
 
 function getOrderDetails(req, res, next) {
-    console.log(req.query.orderID);
+
     const db = new sqlite3.Database('../Database/daisyajewelry.db');
 
     db.all(`SELECT * FROM Products_Sold WHERE ORDER_ID=${req.query.orderID}`, (err, rows) =>
@@ -270,8 +270,30 @@ function getOrderDetails(req, res, next) {
             res.json(rows);
         }
     })
-    
 }
 
 
-module.exports = {insertCustomer, insertOrder, insertProductSold, getAllProducts, getUnitPrice, getOrders, getCustomer, getOrderDetails};
+/*  ------------------------------- Database Update Functions ------------------------------- */
+
+function updateOrderStatus(req, res, next) {
+
+    console.log(req.body);
+
+    const db = new sqlite3.Database('../Database/daisyajewelry.db');
+//UPDATE Orders SET ORDER_STATUS=${req.body.orderStatus} WHERE ORDER_ID=${req.body.orderID}
+    db.run(`UPDATE Orders SET ORDER_STATUS="${req.body.orderStatus}" WHERE ORDER_ID=${req.body.orderID}`, (err) =>
+    {
+        db.close();
+        if(err){
+            //need to detemrine how to handle the error - set error code
+            res.status(500).send()
+            //next(error);  - create next error handling function
+        } else {
+            res.send();
+        }
+    })
+}
+
+
+
+module.exports = {insertCustomer, insertOrder, insertProductSold, getAllProducts, getUnitPrice, getOrders, getCustomer, getOrderDetails, updateOrderStatus};

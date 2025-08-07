@@ -73,6 +73,8 @@ cart.delete('/removeFromCart', express.text(), (req, res) => {
     //need to add exception handling
 });
 
+
+//change these to post I think
 cart.put('/updateTotal', express.text(), (req, res) => {
     req.session.totalPrice = Number(req.body);
     res.send();

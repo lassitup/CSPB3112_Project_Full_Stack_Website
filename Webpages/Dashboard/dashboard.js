@@ -69,9 +69,12 @@ function populateDashboard(orders) {
             tdArray.push(newCell);
         }
 
-        console.log(orders[order]);
+        //contentEditable attribute
         tdArray[0].innerHTML = orders[order].ORDER_ID;
+
         tdArray[1].innerHTML = `${orders[order].CUSTOMER_ID} +/-`;
+        tdArray[1].classList.add('expandButton');
+        tdArray[1].addEventListener('click', showCustomerDetails);
         
         //add button here that triggers query and display of sub table within order details / line items
         tdArray[2].innerHTML = '+ / -';
@@ -80,9 +83,46 @@ function populateDashboard(orders) {
 
 
         tdArray[3].innerHTML = orders[order].ORDER_DATE;
-        tdArray[4].innerHTML = orders[order].ORDER_STATUS;
+
+        //create select listing for user to update order status
+        //tdArray[4].innerHTML = orders[order].ORDER_STATUS;
+        const selectElem = document.createElement('select');
+        selectElem.setAttribute("name", "statusSelect");
+    
+
+        const currentStatus = document.createElement('option');
+        currentStatus.setAttribute("value", orders[order].ORDER_STATUS);
+        currentStatus.innerHTML = `Current Status: ${orders[order].ORDER_STATUS}`;
+
+        const openStatus = document.createElement('option');
+        openStatus.setAttribute("value", "open");
+        openStatus.innerHTML = "Open";
+
+        const completeStatus = document.createElement('option');
+        completeStatus.setAttribute("value", "complete");
+        completeStatus.innerHTML = "Complete";
+
+        const cancelStatus = document.createElement('option');
+        cancelStatus.setAttribute("value", "canceled");
+        cancelStatus.innerHTML = "Cancel";
+
+        selectElem.appendChild(currentStatus);
+        selectElem.appendChild(openStatus);
+        selectElem.appendChild(completeStatus);
+        selectElem.appendChild(cancelStatus);
+
+        selectElem.addEventListener('change', updateStatus);
+        selectElem.classList.add('statusSelect');
+        tdArray[4].appendChild(selectElem);
+        //console.log(tdArray[4].getAttribute("value"));
+
+
         tdArray[5].innerHTML = orders[order].SHIP_DATE;
+        tdArray[5].setAttribute('contenteditable', 'true');
+
         tdArray[6].innerHTML = orders[order].ORDER_NOTES;
+        tdArray[6].setAttribute('contenteditable', 'true');
+
         tdArray[7].innerHTML = orders[order].TOTAL_PRICE;
         tdArray[8].innerHTML = orders[order].SHIPPING;
         tdArray[9].innerHTML = orders[order].SALES_TAX;
@@ -96,6 +136,39 @@ function populateDashboard(orders) {
     }
 
 }
+
+
+async function updateStatus(event) {
+    //get the order number
+
+    const orderID = event.target.parentElement.parentElement.firstChild.innerHTML;
+
+    const submissionData = {
+        method: "POST",
+        body: JSON.stringify(
+            {
+                orderID: orderID,
+                orderStatus: event.target.value
+            }),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }
+
+    const url = `http://localhost:3000/dbManage/updateOrderStatus`;
+    try {
+        const response = await fetch(url, submissionData);
+        if (!response.ok) {
+        console.log(response);
+        throw new Error(`Response status: ${response.status}`);
+        }
+    } 
+    catch (error) {
+        console.error(error.message);
+    }
+
+}
+
 
 async function getOrderDetails(orderID) {
 
@@ -116,21 +189,41 @@ async function getOrderDetails(orderID) {
 }
 
 
+async function getCustomerDetails(customerID) {
+
+    //build request based on the scope of data needed
+    const url = `http://localhost:3000/dbManage/getCustomer?customerID=${customerID}`;
+
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+        }
+        const row = await response.json();
+        return row;
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+
+
 async function showOrderDetails(event) {
 
     //get the parent row of order idand then add a new sibing after limit the width of the new row so it doesn't overlap/blend with the parent table
     const parentRow = event.target.parentElement;
 
-    if(parentRow.nextElementSibling.className == "subTableRow"){
+    if(parentRow.nextElementSibling.className == "subTableRowProduct"){
             parentRow.nextElementSibling.remove();
-    }else {
+    }
+    //implement else if to check if the second sibling is the product table as the customer detail may be inbetween
+    else if(parentRow.nextElementSibling.nextElementSibling.className == "subTableRowProduct") {
+            parentRow.nextElementSibling.nextElementSibling.remove();
+    }
+    else {
 
         const orderID = event.target.previousElementSibling.previousElementSibling.innerHTML;
         //get all order details related to the order number value in the data cell
         const orderDetails = await getOrderDetails(orderID);
-
-
-
 
         const newTable = document.createElement('table');
         newTable.classList.add('table')
@@ -160,8 +253,6 @@ async function showOrderDetails(event) {
             headRow.appendChild(th);
     
         }
-
-        console.log(orderDetails);
 
         for (let line of orderDetails){
             console.log(line);
@@ -194,22 +285,101 @@ async function showOrderDetails(event) {
         td.appendChild(newTable);
         td.colSpan = "11";
         tableRow.appendChild(td);
-        tableRow.className = "subTableRow";
+        tableRow.className = "subTableRowProduct";
 
 
 
         parentRow.insertAdjacentElement('afterend', tableRow);
 
     }
-    //product description
-    //quanitity
-    //metal type
-    //size
-    //extended price
 }
 
 
+async function showCustomerDetails(event) {
 
+    //get the parent row of order idand then add a new sibing after limit the width of the new row so it doesn't overlap/blend with the parent table
+    const parentRow = event.target.parentElement;
+
+    if(parentRow.nextElementSibling.className == "subTableRowCustomer"){
+            parentRow.nextElementSibling.remove();
+    } else if(parentRow.nextElementSibling.nextElementSibling.className == "subTableRowCustomer") {
+            parentRow.nextElementSibling.nextElementSibling.remove();
+    } else {
+
+        const customerID = event.target.previousElementSibling.innerHTML;
+        //get all order details related to the order number value in the data cell
+        const customerDetails = await getCustomerDetails(customerID);
+
+        const newTable = document.createElement('table');
+        newTable.classList.add('table')
+        newTable.classList.add('subtable')
+        const newTableHead = document.createElement('thead');
+        newTable.appendChild(newTableHead);
+        const headRow = document.createElement('tr');
+        newTableHead.appendChild(headRow);
+        const tableBody = document.createElement('tbody');
+        newTable.appendChild(tableBody);
+
+        //create header cells
+        const thArray = [];
+
+        for(let i = 0; i < 10; i++){
+            const th = document.createElement('th');
+            thArray.push(th);
+        }
+        thArray[0].innerHTML = "First Name";
+        thArray[1].innerHTML = "Last Name";
+        thArray[2].innerHTML = "Address 1";
+        thArray[3].innerHTML = "Address 2";
+        thArray[4].innerHTML = "City";
+        thArray[5].innerHTML = "State";
+        thArray[6].innerHTML = "Country";
+        thArray[7].innerHTML = "Zip Code";
+        thArray[8].innerHTML = "Phone";
+        thArray[9].innerHTML = "Email";
+
+        for(const th of thArray){
+            headRow.appendChild(th);
+        }
+
+        const newTR = document.createElement('tr');
+        const detailArray = [];
+
+        //create data cells
+        for(let i = 0; i < 10; i++){
+            const newTD = document.createElement('td');
+            detailArray.push(newTD);
+        }
+        detailArray[0].innerHTML = customerDetails.FIRST_NAME;
+        detailArray[1].innerHTML = customerDetails.LAST_NAME;
+        detailArray[2].innerHTML = customerDetails.ADDRESS_1;
+        detailArray[3].innerHTML = customerDetails.ADDRESS_2;
+        detailArray[4].innerHTML = customerDetails.CITY;
+        detailArray[5].innerHTML = customerDetails.STATE;
+        detailArray[6].innerHTML = customerDetails.COUNTRY;
+        detailArray[7].innerHTML = customerDetails.ZIP;
+        detailArray[8].innerHTML = customerDetails.PHONE;
+        detailArray[9].innerHTML = customerDetails.EMAIL;
+
+
+        for(const td of detailArray){
+            newTR.appendChild(td);
+        }
+
+        tableBody.appendChild(newTR);
+    
+
+        const tableRow = document.createElement('tr');
+        const td = document.createElement('td');
+        td.appendChild(newTable);
+        td.colSpan = "11";
+        tableRow.appendChild(td);
+        tableRow.className = "subTableRowCustomer";
+
+        parentRow.insertAdjacentElement('afterend', tableRow);
+
+    }
+}
 
 
 

@@ -1,9 +1,9 @@
-header {
-    background-color: #a5d7ea;
+header{
+    background-color: rgb(193, 241, 248);
 }
 
 main {
-    background-color: #f0eceb;
+    background-color: #a5d7ea;
     min-height: 75vh;
 
 }
@@ -13,6 +13,8 @@ main {
     font-family: Felipa;
     padding-top: 1rem;;
     font-size: clamp(2rem, 3.5vw, 3.5vw); /*clamp used to set min / max value*/
+    text-decoration: underline;
+    text-underline-offset: 18px;
 }
 
 #shopping-cart {
@@ -39,16 +41,16 @@ main {
 #daisy1 {
     position: absolute;
     top: 0;
-    left: 2.5rem;
+    left: 3rem;
     z-index: 1;
-    width: clamp(80px, 9%, 9%);
+    width: clamp(80px, 10%, 10%);
     height: auto;
 }
 
 #daisy2 {
     position: absolute;
     top: .1rem;
-    right: 2.5rem;
+    right: 3rem;
     z-index: 1;
     width: clamp(80px, 10%, 10%);
     height: auto;

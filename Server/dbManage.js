@@ -33,5 +33,9 @@ dbManage.get('/getOrders', dbMiddleware.getOrders, (req, res) => {
 dbManage.get('/getOrderDetails', dbMiddleware.getOrderDetails, (req, res) => {
 })
 
+
+dbManage.post('/updateOrderStatus', express.json(), dbMiddleware.updateOrderStatus, (req, res) => {
+})
+
 //export the router for use within the main server file
 module.exports = dbManage;
