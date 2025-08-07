@@ -123,10 +123,10 @@ function populateDashboard(orders) {
         tdArray[6].innerHTML = orders[order].ORDER_NOTES;
         tdArray[6].setAttribute('contenteditable', 'true');
 
-        tdArray[7].innerHTML = orders[order].TOTAL_PRICE;
-        tdArray[8].innerHTML = orders[order].SHIPPING;
-        tdArray[9].innerHTML = orders[order].SALES_TAX;
-        tdArray[10].innerHTML = orders[order].TOTAL_ALL;
+        tdArray[7].innerHTML = `$${orders[order].TOTAL_PRICE.toFixed(2)}`;
+        tdArray[8].innerHTML = `$${orders[order].SHIPPING.toFixed(2)}`;
+        tdArray[9].innerHTML = `$${orders[order].SALES_TAX.toFixed(2)}`;
+        tdArray[10].innerHTML = `$${orders[order].TOTAL_ALL.toFixed(2)}`;
 
         for (let cell of tdArray) {
             newRow.appendChild(cell);
@@ -212,12 +212,20 @@ async function showOrderDetails(event) {
     //get the parent row of order idand then add a new sibing after limit the width of the new row so it doesn't overlap/blend with the parent table
     const parentRow = event.target.parentElement;
 
-    if(parentRow.nextElementSibling.className == "subTableRowProduct"){
-            parentRow.nextElementSibling.remove();
+    //ensure that we don't try to access a null sibling
+    const subTableRow1 = parentRow.nextElementSibling;
+    let subTableRow2 = null;
+    if(subTableRow1 != null)
+    {
+        subTableRow2 = parentRow.nextElementSibling.nextElementSibling;
     }
-    //implement else if to check if the second sibling is the product table as the customer detail may be inbetween
-    else if(parentRow.nextElementSibling.nextElementSibling.className == "subTableRowProduct") {
-            parentRow.nextElementSibling.nextElementSibling.remove();
+
+    //check first to ensure the row isn't null before tryiong to check the class name
+    //this allows short circuiting with the and operator
+    if(subTableRow1 != null && subTableRow1.className == "subTableRowProduct"){
+            subTableRow1.remove();
+    } else if(subTableRow2 != null && subTableRow2.className == "subTableRowProduct") {
+            subTableRow2.remove();
     }
     else {
 
@@ -255,7 +263,6 @@ async function showOrderDetails(event) {
         }
 
         for (let line of orderDetails){
-            console.log(line);
             const newTR = document.createElement('tr');
             const detailArray = [];
 
@@ -299,11 +306,21 @@ async function showCustomerDetails(event) {
 
     //get the parent row of order idand then add a new sibing after limit the width of the new row so it doesn't overlap/blend with the parent table
     const parentRow = event.target.parentElement;
+    
+    //ensure that we don't try to access a null sibling
+    const subTableRow1 = parentRow.nextElementSibling;
+    let subTableRow2 = null;
+    if(subTableRow1 != null)
+    {
+        subTableRow2 = parentRow.nextElementSibling.nextElementSibling;
+    }
 
-    if(parentRow.nextElementSibling.className == "subTableRowCustomer"){
-            parentRow.nextElementSibling.remove();
-    } else if(parentRow.nextElementSibling.nextElementSibling.className == "subTableRowCustomer") {
-            parentRow.nextElementSibling.nextElementSibling.remove();
+    //check first to ensure the row isn't null before tryiong to check the class name
+    //this allows short circuiting with the and operator
+    if(subTableRow1 != null && subTableRow1.className == "subTableRowCustomer"){
+            subTableRow1.remove();
+    } else if(subTableRow2 != null && subTableRow2.className == "subTableRowCustomer") {
+            subTableRow2.remove();
     } else {
 
         const customerID = event.target.previousElementSibling.innerHTML;

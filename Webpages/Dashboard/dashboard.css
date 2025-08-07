@@ -34,6 +34,8 @@ main {
 
 .nav-item {
     margin: 0 50px;
+    font-weight: 600;
+    font-size: clamp(1rem, 1vw, 1vw); /*clamp used to set min / max value*/ 
 }
 
 #daisy1 {
@@ -80,8 +82,12 @@ main {
 #dashboard_table {
     margin: 0;
     width: 85%;
+    border: black 10px solid;
 }
 
+table{
+    text-transform: capitalize;
+}
 
 th {
     padding: 0 3.5rem;

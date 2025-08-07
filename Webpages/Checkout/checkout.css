@@ -1,6 +1,10 @@
+header{
+    background-color: rgb(193, 241, 248);
+}
+
 main {
-    background-color: #d5d0cf;
-    min-height: 72vh;
+    background-color: #a5d7ea;
+    min-height: 75vh;
 }
 
 #name {
@@ -13,7 +17,7 @@ main {
 #shopping-cart {
     position: absolute;
     top: 1rem;
-    right: 2rem;
+    right: 1rem;
     z-index: 1;
     width: 5%;
     height: 5%;
@@ -28,6 +32,26 @@ main {
 
 .nav-item {
     margin: 0 50px;
+    font-weight: 600;
+    font-size: clamp(1rem, 1vw, 1vw); /*clamp used to set min / max value*/ 
+}
+
+#daisy1 {
+    position: absolute;
+    top: 0;
+    left: 3rem;
+    z-index: 1;
+    width: clamp(80px, 10%, 10%);
+    height: auto;
+}
+
+#daisy2 {
+    position: absolute;
+    top: .1rem;
+    right: 3rem;
+    z-index: 1;
+    width: clamp(80px, 10%, 10%);
+    height: auto;
 }
 
 #pageTitle{
@@ -35,7 +59,7 @@ main {
     font-weight: 400;
     font-style: normal;
     font-size: clamp(1rem, 1.5vw, 1.5vw); /*clamp used to set min / max value*/
-    background-color: rgb(246, 243, 229);
+    background-color: #F0FFFF;
     border: black solid;
     vertical-align: middle;
 }

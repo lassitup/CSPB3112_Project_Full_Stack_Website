@@ -119,7 +119,7 @@
             </div>
         </div>
         </nav>
-        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <nav class="mx-3" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/index.html">Home</a></li>
                 <li class="breadcrumb-item active" aria-current="page"><a href="./bracelets.html">Order Dashboard</li></a>
@@ -135,21 +135,29 @@
 
         <!--Dashboard User Selections-->
         <div class="container"></div>
-            <div class="row mx-0 mb-5 text-center"> 
-                <div class="col">
+            <div class="row mx-0 mb-5 text-center justify-content-evenly"> 
+                <div class="col-md-2">
                     <div class="mb-3">                      
-                        <button class="btn btn-secondary" id="allOrders" type="submit" value="all">Show All Orders</button>
-                        <button class="btn btn-secondary"  id="openOrders" type="submit" value="open">Show Open Orders</button><br>
+                        <button class="btn btn-secondary fw-bold" id="allOrders" type="submit" value="all">Show All Orders</button>
                     </div>  
-                
+                </div>
+                <div class="col-md-2">
+                    <div class="mb-3">                      
+                        <button class="btn btn-secondary fw-bold"  id="openOrders" type="submit" value="open">Show Open Orders</button><br>
+                    </div>  
+                </div>
+                <div class="col-md-3">
                     <div>
-                        <label for="searchOrderID">Search by Order ID</label>
+                        <label class="fw-bold" for="searchOrderID">Search by Order ID</label>
                         <input id="searchOrderID" type="text"/>
-                        <button class="btn btn-secondary" type="submit" id="searchOrderButton">Submit</button>
-
-                        <label for="searchCustomerID">Search by Customer ID</label>    
+                        <button class="btn btn-secondary fw-bold" type="submit" id="searchOrderButton">Submit</button>
+                    </div>   
+                </div>      
+                <div class="col-md-3">
+                    <div>
+                        <label class="fw-bold" for="searchCustomerID">Search by Customer ID</label>    
                         <input id="searchCustomerID" type="text"/>
-                        <button class="btn btn-secondary" type="submit" id="searchCustomerButton">Submit</button>
+                        <button class="btn btn-secondary fw-bold" type="submit" id="searchCustomerButton">Submit</button>
                     </div>
                 </div>
             </div> 
@@ -157,9 +165,9 @@
             <!--Dashboard Display-->
             <div class="row mx-0"> 
                 <div class="col">  
-                    <table class="table mx-auto text-center mb-5" id="dashboard_table">                   
+                    <table class="table-sm mx-auto table table-hover table-striped table-bordered border-dark-subtle text-center mb-5" id="dashboard_table">                   
                         <thead>
-                        <tr>
+                        <tr class="align-middle">
                             <th>Order ID</th>
                             <th>Customer ID</th>
                             <!--Add hidden subtable here - add event listener to expand to a subtable once the element is clicked-->

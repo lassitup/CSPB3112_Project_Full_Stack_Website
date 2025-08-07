@@ -1,10 +1,10 @@
 header {
-    background-color: #8dc4da;
+    background-color: rgb(193, 241, 248);
 }
 
 
 main {
-    background-color: #f0eceb;
+    background-color: #a5d7ea;
     min-height: 75vh;
 }
 
@@ -13,6 +13,8 @@ main {
     font-family: Felipa;
     padding-top: 1rem;;
     font-size: clamp(2rem, 3.5vw, 3.5vw); /*clamp used to set min / max value*/
+    text-decoration: underline;
+    text-underline-offset: 18px;
 }
 
 #welcome {
@@ -23,6 +25,8 @@ main {
 
 .nav-item {
     margin: 0 50px;
+    font-weight: 600;
+    font-size: clamp(1rem, 1vw, 1vw); /*clamp used to set min / max value*/ 
 }
 
 #daisy1 {

@@ -18,6 +18,8 @@ main {
 
 .nav-item {
     margin: 0 50px;
+    font-weight: 600;
+    font-size: clamp(1rem, 1vw, 1vw); /*clamp used to set min / max value*/ 
 }
 
 input {
