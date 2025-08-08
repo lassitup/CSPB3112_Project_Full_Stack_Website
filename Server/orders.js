@@ -20,6 +20,11 @@ orders.use((req, res, next) => {
 const order_db_chain = [dbMiddleware.insertCustomer, dbMiddleware.insertOrder, dbMiddleware.insertProductSold]
 
 
+
+orders.get('/getOrderId', (req, res) => {
+    res.send(req.session.lastOrderID);
+})
+
 //execute the submission of order data to the database
 //reset the user cart in the session once orders are successfully recorded
 orders.post('/submitOrder', upload.none(), order_db_chain, (req, res) => {

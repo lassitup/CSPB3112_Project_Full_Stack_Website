@@ -44,6 +44,7 @@ app.use((req, res, next) => {
     if(!req.session.cart) {
         req.session.cart = {};
         req.session.itemNumber = 1;
+        req.session.lastOrderID = null;
         next()
     } else {
         next();

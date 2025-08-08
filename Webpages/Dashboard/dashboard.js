@@ -275,7 +275,7 @@ async function showOrderDetails(event) {
             detailArray[1].innerHTML = line.QUANTITY;
             detailArray[2].innerHTML = line.METAL_TYPE;
             detailArray[3].innerHTML = line.SIZE;
-            detailArray[4].innerHTML = line.EXTENDED_PRICE;
+            detailArray[4].innerHTML = `$${line.EXTENDED_PRICE.toFixed(2)}`;
             detailArray[5].innerHTML = line.ORDER_NOTES;
 
             console.log(detailArray);

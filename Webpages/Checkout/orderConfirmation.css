@@ -1,13 +1,19 @@
+header{
+    background-color: rgb(193, 241, 248);
+}
+
 main {
-    background-color: #d5d0cf;
-    min-height: 72vh;
+    background-color: #a5d7ea;
+    min-height: 75vh;
 }
 
 #name {
     text-align: center;
     font-family: Felipa;
     padding-top: 1rem;;
-    font-size: 4rem;
+    font-size: clamp(2rem, 3.5vw, 3.5vw); /*clamp used to set min / max value*/
+    text-decoration: underline;
+    text-underline-offset: 18px;
 }
 
 #welcome {
@@ -20,6 +26,41 @@ main {
     margin: 0 50px;
     font-weight: 600;
     font-size: clamp(1rem, 1vw, 1vw); /*clamp used to set min / max value*/ 
+}
+
+#daisy1 {
+    position: absolute;
+    top: 0;
+    left: 3rem;
+    z-index: 1;
+    width: clamp(80px, 10%, 10%);
+    height: auto;
+}
+
+#daisy2 {
+    position: absolute;
+    top: .1rem;
+    right: 3rem;
+    z-index: 1;
+    width: clamp(80px, 10%, 10%);
+    height: auto;
+}
+
+#pageTitle{
+    font-family: "Playwrite AU QLD", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: clamp(1rem, 1.5vw, 1.5vw); /*clamp used to set min / max value*/
+    background-color: #F0FFFF;
+    border: black solid;
+    vertical-align: middle;
+}
+
+.confirmMessage {
+    font-size: 2.5rem;
+    font-family: "Pragati Narrow", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
 input {
