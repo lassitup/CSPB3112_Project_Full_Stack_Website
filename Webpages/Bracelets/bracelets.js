@@ -1,27 +1,31 @@
+// --- JavaScript to handle activity within the Bracelets Product Page --- //
 
+//Bring in functions commonly used in each product page
 import {addToCart, getUnitPrice} from "/utilityFunctions.js";
 
 
-
+//assign the head of the form
 const formParent = document.getElementById('form');
 
+//converts all inputs in the form into a FormData object that's sent to the server
 const getFormInputs = (event) => {
     //overwrites the default behavior of the form's target / action attributes - allows javascript to take over
     event.preventDefault();
     
-    //FormData API - use to create an object with the  name / values of the inputs
+    //FormData API - used to create an object with the  name / values of the inputs
     const productDetails = new FormData(formParent);
     const submissionData = {
         method: "POST",
         body: productDetails,
         redirect: "follow" //This should instruct the browser to then new page on response
     }
-    //sendData(submissionData);
+
+    //sends the data to the server
     addToCart('addBracelet', submissionData);
 };
 
 
-//Need to use  event type 'submit' on the event listener
+//listen for the 'submit' event to trigger sending data to the server
 formParent.addEventListener('submit', getFormInputs);
 
 
@@ -54,8 +58,9 @@ async function updatePrice() {
 }
 
 
-//Call to update with the initial price
+//Call immediately to update with the initial price with 1 unit
 updatePrice();
 
-//subsequent adjustments to the quantiity element will update the price
+//Subsequent adjustments by the user to the quantiity element will update the price
+const quantity = document.getElementById('quantity');
 quantity.addEventListener('click', updatePrice);
