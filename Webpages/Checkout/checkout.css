@@ -4,7 +4,7 @@ header{
 
 main {
     background-color: #a5d7ea;
-    min-height: 75vh;
+    min-height: 73vh;
 }
 
 #name {
@@ -12,6 +12,9 @@ main {
     font-family: Felipa;
     padding-top: 1rem;;
     font-size: clamp(2rem, 3.5vw, 3.5vw); /*clamp used to set min / max value*/
+    text-decoration: underline;
+    text-underline-offset: 22px;
+    text-decoration-thickness: 5px ;
 }
 
 #shopping-cart {
@@ -41,16 +44,16 @@ main {
     top: 0;
     left: 3rem;
     z-index: 1;
-    width: clamp(80px, 10%, 10%);
+    width: clamp(80px, 9%, 9%);
     height: auto;
 }
 
 #daisy2 {
     position: absolute;
-    top: .1rem;
+    top: 0rem;
     right: 3rem;
     z-index: 1;
-    width: clamp(80px, 10%, 10%);
+    width: clamp(80px, 9%, 9%);
     height: auto;
 }
 
@@ -64,6 +67,9 @@ main {
     vertical-align: middle;
 }
 
+#checkout_table{
+    width: 25%;
+}
 
 input {
     border-radius: 5px;
@@ -77,4 +83,11 @@ input {
 
 #footer p {
     margin: 0;
+}
+
+/*adjust the summary table to appropriately fit the screen*/
+@media only screen and (max-width: 1500px) {
+    #checkout_table{
+        width: 70%;
+    }
 }

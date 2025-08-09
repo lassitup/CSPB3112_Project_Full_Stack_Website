@@ -1,6 +1,6 @@
 // --- JavaScript to handle activity within the Bracelets Product Page --- //
 
-//Bring in functions commonly used in each product page
+//bring in functions commonly used in each product page
 import {addToCart, getUnitPrice} from "/utilityFunctions.js";
 
 

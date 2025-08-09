@@ -1,8 +1,10 @@
+// --- JavaScript to handle activity within the Keychains Product Page --- //
+
+//bring in functions commonly used in each product page
 import {addToCart, getUnitPrice} from "/utilityFunctions.js";
 
 
-//Form Submission logic contained here - data will be sent to the server and held until final order is complete//
-
+//assign the head of the form
 const formParent = document.getElementById('form');
 
 const getFormInputs = (event) => {
