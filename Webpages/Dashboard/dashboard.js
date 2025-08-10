@@ -116,17 +116,19 @@ function populateDashboard(orders) {
         tdArray[4].appendChild(selectElem);
         tdArray[4].className = 'statusTd';
 
-        //add event listener here
-        tdArray[5].innerHTML = orders[order].SHIP_DATE;
-        tdArray[5].setAttribute('contenteditable', 'true');
-        tdArray[5].addEventListener('change', updateOrder);
-        tdArray[5].className = 'dateTd';
+        const shipDateInput= document.createElement('input');
+        shipDateInput.type = 'date';
+        shipDateInput.className = 'dateTd'
+        shipDateInput.value = orders[order].SHIP_DATE;
+        shipDateInput.addEventListener('change', updateOrder);
+        tdArray[5].appendChild(shipDateInput);
         
-        //add event listener here
-        tdArray[6].innerHTML = orders[order].ORDER_NOTES;
-        tdArray[6].setAttribute('contenteditable', 'true');
-        tdArray[5].addEventListener('change', updateOrder);
-        tdArray[6].className = 'notesTd';
+    
+        const newTextarea = document.createElement('textarea');
+        newTextarea.value = orders[order].ORDER_NOTES;
+        newTextarea.addEventListener('change', updateOrder);
+        newTextarea.className = 'notesTd';
+        tdArray[6].appendChild(newTextarea);
 
         tdArray[7].innerHTML = `$${orders[order].TOTAL_PRICE.toFixed(2)}`;
         tdArray[8].innerHTML = `$${orders[order].SHIPPING.toFixed(2)}`;
