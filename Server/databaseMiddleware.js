@@ -276,13 +276,27 @@ function getOrderDetails(req, res, next) {
 
 /*  ------------------------------- Database Update Functions ------------------------------- */
 
-function updateOrderStatus(req, res, next) {
+function updateOrder(req, res, next) {
 
     console.log(req.body);
 
     const db = new sqlite3.Database('../Database/daisyajewelry.db');
+
+    let column;
+    
+    if(req.body.type == "statusTd"){
+        column = 'ORDER_STATUS';
+    }
+
+    else if(req.body.type == "dateTd"){
+        column = 'SHIP_DATE';
+    }
+    else if(req.body.type == "notesTd"){
+        column = 'ORDER_NOTES';
+    }
+
 //UPDATE Orders SET ORDER_STATUS=${req.body.orderStatus} WHERE ORDER_ID=${req.body.orderID}
-    db.run(`UPDATE Orders SET ORDER_STATUS="${req.body.orderStatus}" WHERE ORDER_ID=${req.body.orderID}`, (err) =>
+    db.run(`UPDATE Orders SET ${column}="${req.body.toUpdate}" WHERE ORDER_ID=${req.body.orderID}`, (err) =>
     {
         db.close();
         if(err){
@@ -297,4 +311,4 @@ function updateOrderStatus(req, res, next) {
 
 
 
-module.exports = {insertCustomer, insertOrder, insertProductSold, getAllProducts, getUnitPrice, getOrders, getCustomer, getOrderDetails, updateOrderStatus};
+module.exports = {insertCustomer, insertOrder, insertProductSold, getAllProducts, getUnitPrice, getOrders, getCustomer, getOrderDetails, updateOrder};

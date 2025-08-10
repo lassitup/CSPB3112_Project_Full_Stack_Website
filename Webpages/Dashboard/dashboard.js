@@ -111,17 +111,22 @@ function populateDashboard(orders) {
         selectElem.appendChild(completeStatus);
         selectElem.appendChild(cancelStatus);
 
-        selectElem.addEventListener('change', updateStatus);
+        selectElem.addEventListener('change', updateOrder);
         selectElem.classList.add('statusSelect');
         tdArray[4].appendChild(selectElem);
-        //console.log(tdArray[4].getAttribute("value"));
+        tdArray[4].className = 'statusTd';
 
-
+        //add event listener here
         tdArray[5].innerHTML = orders[order].SHIP_DATE;
         tdArray[5].setAttribute('contenteditable', 'true');
-
+        tdArray[5].addEventListener('change', updateOrder);
+        tdArray[5].className = 'dateTd';
+        
+        //add event listener here
         tdArray[6].innerHTML = orders[order].ORDER_NOTES;
         tdArray[6].setAttribute('contenteditable', 'true');
+        tdArray[5].addEventListener('change', updateOrder);
+        tdArray[6].className = 'notesTd';
 
         tdArray[7].innerHTML = `$${orders[order].TOTAL_PRICE.toFixed(2)}`;
         tdArray[8].innerHTML = `$${orders[order].SHIPPING.toFixed(2)}`;
@@ -138,7 +143,7 @@ function populateDashboard(orders) {
 }
 
 
-async function updateStatus(event) {
+async function updateOrder(event) {
     //get the order number
 
     const orderID = event.target.parentElement.parentElement.firstChild.innerHTML;
@@ -147,15 +152,16 @@ async function updateStatus(event) {
         method: "POST",
         body: JSON.stringify(
             {
+                type: event.target.className,
                 orderID: orderID,
-                orderStatus: event.target.value
+                toUpdate: event.target.value
             }),
         headers: {
             "Content-Type": "application/json"
         }
     }
 
-    const url = `http://localhost:3000/dbManage/updateOrderStatus`;
+    const url = `http://localhost:3000/dbManage/updateOrder`;
     try {
         const response = await fetch(url, submissionData);
         if (!response.ok) {
