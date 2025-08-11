@@ -114,7 +114,6 @@ function populateDashboard(orders) {
         selectElem.addEventListener('change', updateOrder);
         selectElem.classList.add('statusSelect');
         tdArray[4].appendChild(selectElem);
-        tdArray[4].className = 'statusTd';
 
         const shipDateInput= document.createElement('input');
         shipDateInput.type = 'date';

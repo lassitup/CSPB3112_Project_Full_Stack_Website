@@ -284,7 +284,7 @@ function updateOrder(req, res, next) {
 
     let column;
     
-    if(req.body.type == "statusTd"){
+    if(req.body.type == "statusSelect"){
         column = 'ORDER_STATUS';
     }
 
