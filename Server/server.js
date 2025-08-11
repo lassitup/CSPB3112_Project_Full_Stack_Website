@@ -9,9 +9,6 @@ const orders = require('./orders.js');
 const cart = require('./cart.js');
 const dbManage = require('./dbManage.js');
 
-//To handle sessions, need pckages:
-//express-session
-
 //Continue using multer for handling form inputs - express can handle this natively, but we might
 //want to add the ability to upload a file later, which needs multer
 
@@ -31,7 +28,7 @@ app.use(session({
 
 
 
-//set headers to fix the CORS error - research this - do I need?
+//set headers to fix the CORS error - research this if I still it
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE");
@@ -40,6 +37,9 @@ app.use((req, res, next) => {
 })
 
 //initialize the cart to an empty object so we can use to track components of orders
+//itemNumbers keeps track of the number of items currently in the cart
+//lastOrderID is used after we write the order to the database - allows user to see the order number
+//on the confirmation table
 app.use((req, res, next) => {
     if(!req.session.cart) {
         req.session.cart = {};

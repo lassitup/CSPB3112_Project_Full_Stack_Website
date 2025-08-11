@@ -1,18 +1,16 @@
+//This file contains database middleware for use in the server Routers
+
 const sqlite3 = require('sqlite3')
-
-
-//database write middleware here (use as an array - middleware chain)
-//once written and workin, place into it's own file
-//write customer data
-//write order data
-//write products_sold data
-
-//function to write customer data to the database
 
 
 
 /*  ------------------------------- Database Insertion Functions ------------------------------- */
 
+
+//for insertOrder and insertProductsSold functions, in the event of an error, I need to include a removal of the previously 
+//entered data - if insertProductsSold fails, need to remove the order and customer data. Come back and implement this
+
+//function writes customer data to the database for the order
 function insertCustomer(req, res, next) {
     const db = new sqlite3.Database('../Database/daisyajewelry.db');
 
@@ -43,6 +41,7 @@ function insertCustomer(req, res, next) {
     )
 }
 
+//function writes main order data to the database for the order
 function insertOrder(req, res, next) {
     req.session.orderDate = (new Date()).toString();
 
@@ -77,11 +76,14 @@ function insertOrder(req, res, next) {
     )
 }
 
+//function writes order details to the database - the line items (each product sold)
 function insertProductSold(req, res, next) {
 
     const db = new sqlite3.Database('../Database/daisyajewelry.db');
     
     //using a counter to ensure that the database does not get closed prematurely due to possible race conditions
+    //I kept receiving an error where the database would close before everything was written - this solution works, need to research
+    //how to better use promises in node.js - it's slightly different than in ES6
     const totalProducts = Object.keys(req.session.cart).length;
     let completedWrites = 0;
 
@@ -99,7 +101,6 @@ function insertProductSold(req, res, next) {
             completedWrites++;
             if(error) {
 
-                //need to remove previously added record in customers and orders if there was an error
                 console.log("Error in Writing to Product Table:", error);
                 db.close();
                 res.status(500).send();
@@ -121,7 +122,7 @@ function insertProductSold(req, res, next) {
 
 /*  ------------------------------- Database Query Functions ------------------------------- */
 
-
+//function queries all products currently in the product table
 function getAllProducts(req, res, next) {
 
     const db = new sqlite3.Database('../Database/daisyajewelry.db');
@@ -130,16 +131,16 @@ function getAllProducts(req, res, next) {
     {
         db.close();
         if(err){
-            //need to detemrine how to handle the error - set error code
             res.status(500).send()
-            //next(error);  - create next error handling function
+            //next(error);  - create next error handling function?
         } else {
             res.json(rows);
         }
     })
-    //need to close database connection once done
+
 }
 
+//function to query the current set price from the product table based on product ID number
 function getUnitPrice(productID) {
     //returns a middleware function, but it has access to the input parameter in the parent function
     return function (req, res, next) {
@@ -150,7 +151,6 @@ function getUnitPrice(productID) {
         }, (err, row) => {
             db.close();
             if(err){
-                //need to detemrine how to handle the error - set error code
                 res.status(500).send()
                 //next(error);  - create next error handling function
             } else {
@@ -170,7 +170,6 @@ function getOrders(req, res, next) {
         {
             db.close();
             if(err){
-                //need to detemrine how to handle the error - set error code
                 res.status(500).send()
                 //next(error);  - create next error handling function
             } else {
@@ -183,7 +182,6 @@ function getOrders(req, res, next) {
         {
             db.close();
             if(err){
-                //need to detemrine how to handle the error - set error code
                 res.status(500).send()
                 //next(error);  - create next error handling function
             } else {
@@ -200,7 +198,6 @@ function getOrders(req, res, next) {
 
             
             if(err){
-                //need to detemrine how to handle the error - set error code
                 res.status(500).send()
                 //next(error);  - create next error handling function
             } else {
@@ -219,7 +216,6 @@ function getOrders(req, res, next) {
 
             
             if(err){
-                //need to detemrine how to handle the error - set error code
                 res.status(500).send()
                 //next(error);  - create next error handling function
             } else {
@@ -236,7 +232,7 @@ function getOrders(req, res, next) {
     }
     //need to close database connection once done
 }
-
+//function gets customer details of customer ID passed attached as query string
 function getCustomer(req, res, next) {
         
 const db = new sqlite3.Database('../Database/daisyajewelry.db');
@@ -246,7 +242,6 @@ const db = new sqlite3.Database('../Database/daisyajewelry.db');
     }, (err, row) => {
         db.close();
         if(err){
-            //need to detemrine how to handle the error - set error code
             res.status(500).send()
             //next(error);  - create next error handling function
         } else {
@@ -254,7 +249,7 @@ const db = new sqlite3.Database('../Database/daisyajewelry.db');
         }
     });
 }
-
+//function gets order details (product details) based on order ID attached as query string
 function getOrderDetails(req, res, next) {
 
     const db = new sqlite3.Database('../Database/daisyajewelry.db');
@@ -263,7 +258,6 @@ function getOrderDetails(req, res, next) {
     {
         db.close();
         if(err){
-            //need to detemrine how to handle the error - set error code
             res.status(500).send()
             //next(error);  - create next error handling function
         } else {
@@ -276,6 +270,8 @@ function getOrderDetails(req, res, next) {
 
 /*  ------------------------------- Database Update Functions ------------------------------- */
 
+//function performs updates to the database based on the data passed in the request body
+//values checked in the conditional are based on the class name of the element triggering the event
 function updateOrder(req, res, next) {
 
     console.log(req.body);
@@ -295,12 +291,10 @@ function updateOrder(req, res, next) {
         column = 'ORDER_NOTES';
     }
 
-//UPDATE Orders SET ORDER_STATUS=${req.body.orderStatus} WHERE ORDER_ID=${req.body.orderID}
     db.run(`UPDATE Orders SET ${column}="${req.body.toUpdate}" WHERE ORDER_ID=${req.body.orderID}`, (err) =>
     {
         db.close();
         if(err){
-            //need to detemrine how to handle the error - set error code
             res.status(500).send()
             //next(error);  - create next error handling function
         } else {
