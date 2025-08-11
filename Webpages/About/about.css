@@ -58,6 +58,23 @@ main {
     height: auto;
 }
 
+
+#daisyQuote1 {
+    float:left;
+    z-index: 1;
+    width: clamp(50px, 15%, 15%);
+    height: auto;
+}
+
+#daisyQuote2 {
+    float:right;
+    z-index: 1;
+    width: clamp(50px, 15%, 15%);
+    height: auto;
+}
+
+
+
 #pageTitle{
     font-family: "Playwrite AU QLD", cursive;
     font-weight: 400;
@@ -69,8 +86,10 @@ main {
 }
 
 #quote{
-    font-size: 2.5rem;
+    font-size: clamp(.5rem, 3rem, 3rem); /*clamp used to set min / max value*/
     font-weight: 600;
+    font-family: "Playwrite AU QLD", cursive;
+    font-style: normal;
 }
 
 #grandmaImage{
@@ -81,12 +100,30 @@ main {
 }
 
 figcaption{
+    font-family: "Playwrite AU QLD", cursive;
+    font-weight: 400;
+    font-style: normal;
     background-color: #F0FFFF;
     border-radius: 25px;
     font-size: 2rem;
 }
 
+#familyImage{
+    display: inline-block;
+    width: 100%;
+    height: auto;
+    object-fit:contain; 
+    border-radius: 25px;
+}
+
 #description {
+    font-size: 2.5rem;
+    background-color:#F0FFFF;
+    border: black 5px solid;
+    border-radius: 25px;
+}
+
+#aboutFamily{
     font-size: 2.5rem;
     background-color:#F0FFFF;
     border: black 5px solid;

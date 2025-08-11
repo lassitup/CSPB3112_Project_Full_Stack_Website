@@ -4,7 +4,7 @@ header{
 
 main {
     background-color: #a5d7ea;
-    min-height: 73vh;
+    min-height: 75vh;
 }
 
 #name {
@@ -13,7 +13,8 @@ main {
     padding-top: 1rem;;
     font-size: clamp(2rem, 3.5vw, 3.5vw); /*clamp used to set min / max value*/
     text-decoration: underline;
-    text-underline-offset: 18px;
+    text-underline-offset: 22px;
+    text-decoration-thickness: 5px ;
 }
 
 #shopping-cart {
@@ -43,16 +44,16 @@ main {
     top: 0;
     left: 3rem;
     z-index: 1;
-    width: clamp(80px, 10%, 10%);
+    width: clamp(80px, 9%, 9%);
     height: auto;
 }
 
 #daisy2 {
     position: absolute;
-    top: .1rem;
+    top: 0;
     right: 3rem;
     z-index: 1;
-    width: clamp(80px, 10%, 10%);
+    width: clamp(80px, 9%, 9%);
     height: auto;
 }
 
@@ -72,17 +73,16 @@ main {
     text-transform: capitalize;
 }
 
-#orderGrid {
-    text-align: center;
-    padding: 0;
-    width: 100%;
-    margin-top: 40px;
-}
-
 #dashboard_table {
     margin: 0;
     width: 85%;
     border: black 10px solid;
+}
+
+.notesTd{
+    resize: both;
+    width: 100%;
+    max-width: 100%;
 }
 
 table{
