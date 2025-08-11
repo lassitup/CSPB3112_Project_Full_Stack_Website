@@ -1,5 +1,5 @@
 
-
+//get all button elements in the menu
 const button1 = document.getElementById('openOrders');
 const button2 = document.getElementById('allOrders');
 const button3 = document.getElementById('searchOrderButton');
@@ -10,10 +10,9 @@ button2.addEventListener('click', getOrders);
 button3.addEventListener('click', getOrders);
 button4.addEventListener('click', getOrders);
 
-//show all orders
 
-//Function to return order details from the database
-//Query parameters used to specify the reequested items
+//function to return order details from the database
+//query parameters used to specify the reequested items
 async function getOrders(event) {
 
     //By default, button element has a value of an empty string
@@ -21,11 +20,10 @@ async function getOrders(event) {
     let queryStringType = "";
     let queryStringID = "";
     if(event.target.value === ""){
-        //can further test is if the input is for cust or order id and attach to query
-        // or maybe place the order id / customer num in the query string and can then test of they are empty on the server
-        const inputElement = event.target.previousElementSibling;
 
-        //console.log(inputElement.id);
+        //Further test if the input is for customer or order id and attach to the query
+        const inputElement = event.target.previousElementSibling;
+s
         if(inputElement.id === "searchOrderID"){
             queryStringType = "orderID"
             queryStringID = inputElement.value;
@@ -55,12 +53,12 @@ async function getOrders(event) {
     }
 }
 
-
+//function to fill in the query results from the orders tables in the db
 function populateDashboard(orders) {
     const tableBody = document.getElementById('tableBody');
-    //This will remove all child elements and handles cleaning up event listeners within
+    //this will remove all child elements and handles cleaning up event listeners within
     tableBody.innerHTML = "";
-
+    //build out table rows for each entry in the order table
     for(let order in orders){
         const newRow = document.createElement('tr');
         const tdArray = [];
@@ -69,14 +67,13 @@ function populateDashboard(orders) {
             tdArray.push(newCell);
         }
 
-        //contentEditable attribute
         tdArray[0].innerHTML = orders[order].ORDER_ID;
 
         tdArray[1].innerHTML = `${orders[order].CUSTOMER_ID} +/-`;
         tdArray[1].classList.add('expandButton');
         tdArray[1].addEventListener('click', showCustomerDetails);
         
-        //add button here that triggers query and display of sub table within order details / line items
+        //add button that triggers query and display of sub table within order details / line items
         tdArray[2].innerHTML = '+ / -';
         tdArray[2].classList.add('expandButton');
         tdArray[2].addEventListener('click', showOrderDetails);
@@ -85,11 +82,10 @@ function populateDashboard(orders) {
         tdArray[3].innerHTML = orders[order].ORDER_DATE;
 
         //create select listing for user to update order status
-        //tdArray[4].innerHTML = orders[order].ORDER_STATUS;
         const selectElem = document.createElement('select');
         selectElem.setAttribute("name", "statusSelect");
     
-
+        //create all options for the select element
         const currentStatus = document.createElement('option');
         currentStatus.setAttribute("value", orders[order].ORDER_STATUS);
         currentStatus.innerHTML = `Current Status: ${orders[order].ORDER_STATUS}`;
@@ -106,15 +102,18 @@ function populateDashboard(orders) {
         cancelStatus.setAttribute("value", "canceled");
         cancelStatus.innerHTML = "Cancel";
 
+        //add the options to the select element
         selectElem.appendChild(currentStatus);
         selectElem.appendChild(openStatus);
         selectElem.appendChild(completeStatus);
         selectElem.appendChild(cancelStatus);
 
+        //select element triggers a change event
         selectElem.addEventListener('change', updateOrder);
         selectElem.classList.add('statusSelect');
         tdArray[4].appendChild(selectElem);
 
+        //create a date input element
         const shipDateInput= document.createElement('input');
         shipDateInput.type = 'date';
         shipDateInput.className = 'dateTd'
@@ -122,7 +121,7 @@ function populateDashboard(orders) {
         shipDateInput.addEventListener('change', updateOrder);
         tdArray[5].appendChild(shipDateInput);
         
-    
+        //create a text area element so user can add notes to the order
         const newTextarea = document.createElement('textarea');
         newTextarea.value = orders[order].ORDER_NOTES;
         newTextarea.addEventListener('change', updateOrder);
@@ -143,12 +142,14 @@ function populateDashboard(orders) {
 
 }
 
-
+//function to send user made updates to the server
 async function updateOrder(event) {
-    //get the order number
-
+    
+    //get the order number - first element in the row contains this
     const orderID = event.target.parentElement.parentElement.firstChild.innerHTML;
 
+    //body includes the order id, type (column) being updated and the value
+    //logic on the server will determine how to handle
     const submissionData = {
         method: "POST",
         body: JSON.stringify(
@@ -176,7 +177,7 @@ async function updateOrder(event) {
 
 }
 
-
+//function request the line items of the order form the products_sold table
 async function getOrderDetails(orderID) {
 
 
@@ -195,7 +196,7 @@ async function getOrderDetails(orderID) {
     }
 }
 
-
+//function request customer detail related to the order
 async function getCustomerDetails(customerID) {
 
     //build request based on the scope of data needed
@@ -407,8 +408,3 @@ async function showCustomerDetails(event) {
 
 
 
-
-//show all open orders
-//query a specifc order number
-//be able to update order status and add notes
-//have the ability to expand the customer id and the product details of the order - subtables
