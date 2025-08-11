@@ -1,3 +1,5 @@
+// JS file handling all logic for the user dashboard
+
 
 //get all button elements in the menu
 const button1 = document.getElementById('openOrders');
@@ -214,15 +216,19 @@ async function getCustomerDetails(customerID) {
     }
 }
 
-
+//function that builds out subtable displaying the order's line items
 async function showOrderDetails(event) {
 
     //get the parent row of order idand then add a new sibing after limit the width of the new row so it doesn't overlap/blend with the parent table
     const parentRow = event.target.parentElement;
 
-    //ensure that we don't try to access a null sibling
+    
+    //first determine if one of the two next sibling elements are the order detail subtable, if not
+    //we can go ahead and generate it, otherwise determine which sibling element contains it (there can be both the customer and 
+    //order detail tables open at once) and then close it.
     const subTableRow1 = parentRow.nextElementSibling;
     let subTableRow2 = null;
+    //ensure that we don't try to access a null sibling
     if(subTableRow1 != null)
     {
         subTableRow2 = parentRow.nextElementSibling.nextElementSibling;
@@ -309,22 +315,26 @@ async function showOrderDetails(event) {
     }
 }
 
-
+//function that builds out subtable displaying the customer details related to the order
 async function showCustomerDetails(event) {
 
-    //get the parent row of order idand then add a new sibing after limit the width of the new row so it doesn't overlap/blend with the parent table
+    //get the parent row of order id and then add a new sibling
     const parentRow = event.target.parentElement;
     
-    //ensure that we don't try to access a null sibling
+    //first determine if one of the two next sibling elements are the customer subtable, if not
+    //we can go ahead and generate it, otherwise determine which sibling element contains it (there can be both the customer and 
+    //order detail tables open at once) and then close it.
+
     const subTableRow1 = parentRow.nextElementSibling;
     let subTableRow2 = null;
+    //ensure that we don't try to access a null sibling
     if(subTableRow1 != null)
     {
         subTableRow2 = parentRow.nextElementSibling.nextElementSibling;
     }
 
-    //check first to ensure the row isn't null before tryiong to check the class name
-    //this allows short circuiting with the and operator
+    //check first to ensure the row isn't null before trying to check the class name
+    //this allows short circuiting with the && operator
     if(subTableRow1 != null && subTableRow1.className == "subTableRowCustomer"){
             subTableRow1.remove();
     } else if(subTableRow2 != null && subTableRow2.className == "subTableRowCustomer") {
@@ -347,11 +357,13 @@ async function showCustomerDetails(event) {
 
         //create header cells
         const thArray = [];
-
+        
+        //create th elements to hold the headers
         for(let i = 0; i < 10; i++){
             const th = document.createElement('th');
             thArray.push(th);
         }
+        //populate the th elements
         thArray[0].innerHTML = "First Name";
         thArray[1].innerHTML = "Last Name";
         thArray[2].innerHTML = "Address 1";
@@ -363,10 +375,12 @@ async function showCustomerDetails(event) {
         thArray[8].innerHTML = "Phone";
         thArray[9].innerHTML = "Email";
 
+        //add the th elements to the header row
         for(const th of thArray){
             headRow.appendChild(th);
         }
 
+        //repeat this cycle for each record
         const newTR = document.createElement('tr');
         const detailArray = [];
 
@@ -392,8 +406,9 @@ async function showCustomerDetails(event) {
         }
 
         tableBody.appendChild(newTR);
-    
-
+        
+        //We need to place the entire table within the first td of the new subrow and have it span
+        //the entire width of the parent table
         const tableRow = document.createElement('tr');
         const td = document.createElement('td');
         td.appendChild(newTable);
@@ -402,7 +417,6 @@ async function showCustomerDetails(event) {
         tableRow.className = "subTableRowCustomer";
 
         parentRow.insertAdjacentElement('afterend', tableRow);
-
     }
 }
 

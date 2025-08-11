@@ -1,6 +1,6 @@
+//Main Express Server file
+
 const express = require('express');
-const multer = require('multer');
-const sqlite3 = require('sqlite3')
 const path = require('path');
 const session = require('express-session');
 
@@ -9,8 +9,6 @@ const orders = require('./orders.js');
 const cart = require('./cart.js');
 const dbManage = require('./dbManage.js');
 
-//Continue using multer for handling form inputs - express can handle this natively, but we might
-//want to add the ability to upload a file later, which needs multer
 
 //Initiate Express Server
 const app = express();
@@ -60,8 +58,6 @@ app.use('/dbManage', dbManage);
  
 //directs the server to pull static pages like other html/css/images from the appropriate directory
 //__dirname refers to the current directory running the serve JS file
-
-
 app.use(express.static(path.join(__dirname, '..', 'Webpages')));
 app.use(express.static(path.join(__dirname, '..', 'Utilities')));
 

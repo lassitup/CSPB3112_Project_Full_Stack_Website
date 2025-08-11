@@ -3,12 +3,14 @@
 const express = require('express');
 const multer = require('multer');
 const dbMiddleware = require('./databaseMiddleware.js');
-const path = require('path');
 
 const upload = multer();
 const orders = express.Router();
 
+//Continue using multer for handling form inputs - express can handle this natively, but we might
+//want to add the ability to upload a file later, which needs multer
 
+//set headers to fix the CORS error - research this if I still it
 orders.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
@@ -20,7 +22,7 @@ orders.use((req, res, next) => {
 const order_db_chain = [dbMiddleware.insertCustomer, dbMiddleware.insertOrder, dbMiddleware.insertProductSold]
 
 
-
+//Route to request the order ID of the previously submitted order - used in the confirmation page
 orders.get('/getOrderId', (req, res) => {
     res.send(req.session.lastOrderID);
 })
@@ -28,7 +30,6 @@ orders.get('/getOrderId', (req, res) => {
 //execute the submission of order data to the database
 //reset the user cart in the session once orders are successfully recorded
 orders.post('/submitOrder', upload.none(), order_db_chain, (req, res) => {
-    //can we send the order number with it? can maybe set a previous order number object within the session
     //Once the order is recorded to the database, reset the session cart and item numbers in the cart
     req.session.cart = {};
     req.session.itemNumber = 1;

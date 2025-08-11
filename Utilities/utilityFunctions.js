@@ -1,5 +1,4 @@
-//Functions that support multiple JS files
-
+//Functions that support multiple Product files
 
 
 //Form Submission logic contained here - data will be sent to the server and held until final order is complete//
@@ -13,7 +12,7 @@ const getFormInputs = (event) => {
     const submissionData = {
         method: "POST",
         body: productDetails,
-        redirect: "follow" //This should instruct the browser to then new page on response
+        redirect: "follow" //This should instruct the browser to go  to page on response
     }
     sendData(submissionData);
 };
@@ -46,15 +45,12 @@ async function addToCart(path, submissionData) {
       throw new Error(`Response status: ${response.status}`);
     }
    else {
-    //provide a notifcation that item successfully added to cart
-    //could build out div in html doc, when this returns 'unhide' it and call a function to hide after
-    //a period of time
+    //provides a notifcation that item successfully added to cart
     const alert = document.getElementById('cartAdded');
     alert.style.display = 'block';
     setTimeout(() => {
       alert.style.display = 'none';
     }, 2000);
-     //window.alert('Item successfully added to cart!');
    }
   } catch (error) {
     console.error(error.message);
