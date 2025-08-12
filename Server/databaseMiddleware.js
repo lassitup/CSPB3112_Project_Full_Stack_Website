@@ -274,8 +274,6 @@ function getOrderDetails(req, res, next) {
 //values checked in the conditional are based on the class name of the element triggering the event
 function updateOrder(req, res, next) {
 
-    console.log(req.body);
-
     const db = new sqlite3.Database('../Database/daisyajewelry.db');
 
     let column;

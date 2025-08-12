@@ -19,24 +19,36 @@ async function getOrders(event) {
 
     //By default, button element has a value of an empty string
     //Test if the button has a value, if not go to the previous element and get the value from the input
+
+
     let queryStringType = "";
     let queryStringID = "";
     if(event.target.value === ""){
 
         //Further test if the input is for customer or order id and attach to the query
         const inputElement = event.target.previousElementSibling;
-s
+
         if(inputElement.id === "searchOrderID"){
             queryStringType = "orderID"
             queryStringID = inputElement.value;
+            const customerIdButton = document.getElementById('searchCustomerID');
+            customerIdButton.value = "";
+
+
         }
         else if(inputElement.id === "searchCustomerID") {
             queryStringType = "customerID"
             queryStringID = inputElement.value;
+            const orderIdButton = document.getElementById('searchOrderID');
+            orderIdButton.value = "";
         }
 
     } else {
         queryStringType = event.target.value;
+        const customerIdButton = document.getElementById('searchCustomerID');
+        customerIdButton.value = ""
+        const orderIdButton = document.getElementById('searchOrderID');
+        orderIdButton.value = "";
     }
 
 
