@@ -23,13 +23,17 @@ Tech Stack:
 
 Installation & Usage:
 - Install node.js (https://nodejs.org/en/download)
-- Install necessary dependencies for the Express server
-    - express-session
-    - sqlite3
-    - multer
+- Within the project directory, install necessary package dependencies for the Express server (https://docs.npmjs.com/cli/v6/commands/npm-install)
+    - "express-session"
+    - "sqlite3"
+    - "multer"
+- Navigate to the Server directory and, within the CLI, input the following command: node server.js
+    - Now the server is running
+  Go to your browser of choice and go to the following address: http://localhost:3000/
+    - You should now be at the home page of the website 
 
-Screenshots (with captions/explanations) and possibly video demo
- - Video Demo (name of file within the repository)
+Project Walkthrough
+ - Video Demo (Project Walkthrough.mov)
  - Sample Transaction Walkthrough (name of file within the repository)
 
 
