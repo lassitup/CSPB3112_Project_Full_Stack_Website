@@ -29,7 +29,7 @@ Installation & Usage:
     - "multer"
 - Navigate to the Server directory and, within the CLI, input the following command: node server.js
     - Now the server is running
-  Go to your browser of choice and go to the following address: http://localhost:3000/
+    - Go to your browser of choice and go to the following address: http://localhost:3000/
     - You should now be at the home page of the website 
 
 Project Walkthrough
