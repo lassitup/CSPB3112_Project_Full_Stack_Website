@@ -24,9 +24,10 @@ Tech Stack:
 Installation & Usage:
 - Install node.js (https://nodejs.org/en/download)
 - Within the project directory, install necessary package dependencies for the Express server (https://docs.npmjs.com/cli/v6/commands/npm-install)
-    - "express-session"
-    - "sqlite3"
-    - "multer"
+    - "express-session" - https://www.npmjs.com/package/express-session
+    - "sqlite3" - https://www.npmjs.com/package/sqlite3
+    - "multer" - https://www.npmjs.com/package/multer
+    
 - Navigate to the Server directory and, within the CLI, input the following command: node server.js
     - Now the server is running
     - Go to your browser of choice and go to the following address: http://localhost:3000/
