@@ -34,7 +34,7 @@ Installation & Usage:
 
 Project Walkthrough
  - Video Demo (Project Walkthrough.mov)
- - Sample Transaction Walkthrough (name of file within the repository)
+ - Sample Transaction Walkthrough (Final Project Report - Justin Lassiter)
 
 
 Future Improvements:
@@ -42,3 +42,7 @@ Future Improvements:
 - Implement additional security measures to ensure a secure shopping experience - Main focus for the project was to get the website functioning
 - End goal is put this site online - Converting to a PostgreSQL database will be needed
 - Implement the ability for the customer to provide payment information - will need to connect with a service such as Stripe
+
+Course Blog
+- Site maintained during the semester providing updates on the progress of the project
+- https://justinlassiter.com/cspb3112.html
